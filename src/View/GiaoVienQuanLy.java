@@ -2,349 +2,437 @@ package View;
 
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.table.DefaultTableModel;
 
 public class GiaoVienQuanLy extends JFrame {
-    private JButton xoaDiemButton;
-    private JButton dangxuatButton;
-    private JTextField diaChiHoSoTextField;
-    private JTextField finalTextField;
-    private JTable diemTable;
-    private JTextField midternTextField;
-    private JTextField homeworkTextField;
-    private JTextField emailTextField;
-    private JButton exportcsvDiemButton;
-    private JButton exportcsvHoSoButton;
-    private JTextField idDiemTextField;
-    private JTextField hoDiemTextField;
-    private JTextField hoHoSoTextField;
-    private JTable hoSoTable;
-    private JTextField idHoSoTextField;
-    private JScrollPane jScrollPane1;
-    private JScrollPane jScrollPane2;
-    private JPanel mainPanel;
-    private JTextField ngaysinhTextField;
-    private JPanel quanLyDiemPanel;
-    private JPanel quanLyHoSoPanel;
-    private JPanel quanLyHoSoPanel2;
-    private JTextField sodienthoaiTextField;
-    private JButton suaHoSoButton;
-    private JButton suaDiemButton;
-    private JTabbedPane tabPanel;
-    private JTextField tenDiemTextField;
-    private JTextField tenHoSoTextField;
-    private JButton themHoSoButton;
-    private JButton themDiemButton;
-    private JTextField timkiemDiemTextField;
-    private JTextField timkiemHoSoTextField;
-    private JTextField titleDiemTextField;
-    private JTextField titleHosoTextField;
-    private JLabel titleLabel;
-    private JButton xoaHoSoButton;
+    private javax.swing.JButton xoaDiemButton;
+    private javax.swing.JButton dangxuatButton;
+    private javax.swing.JTextField diachiHoSoField;
+    private javax.swing.JLabel diachiHoSoLabel;
+    private javax.swing.JTable diemTable;
+    private javax.swing.JTextField diembaitapField;
+    private javax.swing.JLabel diembaitapLabel;
+    private javax.swing.JTextField diemcuoikyField;
+    private javax.swing.JLabel diemcuoikyLabel;
+    private javax.swing.JTextField diemgiuakyField;
+    private javax.swing.JLabel diemgiuakyLabel;
+    private javax.swing.JTextField emailHoSoField;
+    private javax.swing.JLabel emailHoSoLabel;
+    private javax.swing.JButton exportcsvDiemButton;
+    private javax.swing.JButton exportcsvHoSoButton;
+    private javax.swing.JTextField hoDiemField;
+    private javax.swing.JTextField hoHoSoField;
+    private javax.swing.JLabel hoHoSoLabel;
+    private javax.swing.JLabel hoDiemLabel;
+    private javax.swing.JTable hoSoTable;
+    private javax.swing.JTextField idDiemField;
+    private javax.swing.JTextField idHoSoField;
+    private javax.swing.JLabel idHoSoLabel;
+    private javax.swing.JLabel idDiemLabel;
+    private javax.swing.JScrollPane diemScrollPane;
+    private javax.swing.JScrollPane hosoScrollPane;
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JTextField ngaysinhHoSoField;
+    private javax.swing.JLabel ngaysinhHoSoLabel;
+    private javax.swing.JPanel quanDiemPanel;
+    private javax.swing.JPanel quanLyDiemPanel;
+    private javax.swing.JPanel quanLyHoSoPanel;
+    private javax.swing.JButton suaHoSoButton;
+    private javax.swing.JButton suaDiemButton;
+    private javax.swing.JTabbedPane tabPanel;
+    private javax.swing.JTextField tenDiemField;
+    private javax.swing.JTextField tenHoSoField;
+    private javax.swing.JLabel tenHoSoLabel;
+    private javax.swing.JLabel tenDiemLabel;
+    private javax.swing.JButton themDiemButton;
+    private javax.swing.JTextField timkiemDiemField;
+    private javax.swing.JTextField timkiemHoSoField;
+    private javax.swing.JTextField titleDiemField;
+    private javax.swing.JTextField titleHosoField;
+    private javax.swing.JLabel titleMainLabel;
+    private javax.swing.JTextField tongiaoHoSoField;
+    private javax.swing.JLabel tongiaoHoSoLabel;
+    private javax.swing.JButton xoaHoSoButton;
+    public DefaultTableModel tableModelDiem, tableModelHoSo;
 
     public GiaoVienQuanLy() {
         initComponents();
     }
 
     public void initComponents() {
-        // titleLabel
-        titleLabel = new javax.swing.JLabel();
-        titleLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        titleLabel.setForeground(new java.awt.Color(52, 113, 235));
-        titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleLabel.setText("QUẢN LÝ ĐIỂM VÀ HỒ SƠ");
-        mainPanel.add(titleLabel);
-        titleLabel.setBounds(230, 10, 340, 32);
+        // diem
+        // titleDiemField
+        // titleHosoField
+        titleDiemField = new JTextField();
+        titleDiemField.setEditable(false);
+        titleDiemField.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
+        titleDiemField.setHorizontalAlignment(JTextField.CENTER);
+        titleDiemField.setText("Điểm");
+        titleDiemField.setBorder(null);
+        titleDiemField.setBounds(10, 10, 580, 20);
 
-        // xoaDiemButton
-        xoaDiemButton = new javax.swing.JButton();
-        xoaDiemButton.setBackground(new java.awt.Color(52, 235, 95));
-        xoaDiemButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        xoaDiemButton.setForeground(new java.awt.Color(255, 255, 255));
-        xoaDiemButton.setText("Xóa");
-        quanLyHoSoPanel2.add(xoaDiemButton);
-        xoaDiemButton.setBounds(710, 360, 70, 30);
+        // timkiemDiemField
+        timkiemDiemField = new JTextField();
+        timkiemDiemField.setBackground(new Color(204, 255, 255));
+        timkiemDiemField.setFont(new Font("Segoe UI", 2, 12)); // NOI18N
+        timkiemDiemField.setHorizontalAlignment(JTextField.CENTER);
+        timkiemDiemField.setText("Tìm kiếm");
 
-        // suaDiemButton
-        suaDiemButton = new javax.swing.JButton();
-        suaDiemButton.setBackground(new java.awt.Color(52, 235, 95));
-        suaDiemButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        suaDiemButton.setForeground(new java.awt.Color(255, 255, 255));
-        suaDiemButton.setText("Sửa");
-        quanLyHoSoPanel2.add(suaDiemButton);
-        suaDiemButton.setBounds(630, 360, 70, 30);
+        timkiemDiemField.setBounds(610, 10, 170, 40);
+
+        // idDiemField
+        idDiemField = new JTextField();
+        idDiemField.setHorizontalAlignment(JTextField.CENTER);
+
+        idDiemField.setBounds(610, 70, 170, 30);
+
+        // hoDiemField
+        hoDiemField = new JTextField();
+        hoDiemField.setHorizontalAlignment(JTextField.CENTER);
+
+        hoDiemField.setBounds(610, 120, 170, 30);
+
+        // tenDiemField
+        tenDiemField = new JTextField();
+        tenDiemField.setHorizontalAlignment(JTextField.CENTER);
+
+        tenDiemField.setBounds(610, 170, 170, 30);
+
+        // diembaitapField
+        diembaitapField = new JTextField();
+        diembaitapField.setHorizontalAlignment(JTextField.CENTER);
+
+        diembaitapField.setBounds(610, 220, 170, 30);
+
+        // diemgiuakyField
+        diemgiuakyField = new JTextField();
+        diemgiuakyField.setHorizontalAlignment(JTextField.CENTER);
+
+        diemgiuakyField.setBounds(610, 270, 170, 30);
+
+        // diemcuoikyField
+        diemcuoikyField = new JTextField();
+        diemcuoikyField.setHorizontalAlignment(JTextField.CENTER);
+
+        diemcuoikyField.setBounds(610, 320, 170, 30);
 
         // themDiemButton
-        themDiemButton = new javax.swing.JButton();
-        themDiemButton.setBackground(new java.awt.Color(52, 235, 95));
-        themDiemButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        themDiemButton.setForeground(new java.awt.Color(255, 255, 255));
+        themDiemButton = new JButton();
+        themDiemButton.setBackground(new Color(52, 235, 95));
+        themDiemButton.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
+        themDiemButton.setForeground(new Color(255, 255, 255));
         themDiemButton.setText("Thêm");
-        quanLyHoSoPanel2.add(themDiemButton);
+
         themDiemButton.setBounds(550, 360, 70, 30);
-        
-        //exportcsvDiemButton
-        exportcsvDiemButton = new javax.swing.JButton();
-        exportcsvDiemButton.setBackground(new java.awt.Color(102, 102, 102));
-        exportcsvDiemButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        exportcsvDiemButton.setForeground(new java.awt.Color(255, 255, 255));
+        themDiemButton.setFocusable(false);
+
+        // suaDiemButton
+        suaDiemButton = new JButton();
+        suaDiemButton.setBackground(new Color(52, 235, 95));
+        suaDiemButton.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
+        suaDiemButton.setForeground(new Color(255, 255, 255));
+        suaDiemButton.setText("Sửa");
+
+        suaDiemButton.setBounds(630, 360, 70, 30);
+        suaDiemButton.setFocusable(false);
+
+        // xoaDiemButton
+        xoaDiemButton = new JButton();
+        xoaDiemButton.setBackground(new Color(52, 235, 95));
+        xoaDiemButton.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
+        xoaDiemButton.setForeground(new Color(255, 255, 255));
+        xoaDiemButton.setText("Xóa");
+
+        xoaDiemButton.setBounds(710, 360, 70, 30);
+        xoaDiemButton.setFocusable(false);
+
+        // diemTable
+        String[] columnNameDiem = {};
+        tableModelDiem = new DefaultTableModel(columnNameDiem, 0);
+        diemTable = new JTable(tableModelDiem);
+        Object[] rowDiem = {};
+
+        // diemScrollPane
+        diemScrollPane = new JScrollPane();
+        diemScrollPane.setViewportView(diemTable);
+
+        diemScrollPane.setBounds(10, 30, 580, 310);
+
+        // exportcsvDiemButton
+        exportcsvDiemButton = new JButton();
+        exportcsvDiemButton.setBackground(new Color(102, 102, 102));
+        exportcsvDiemButton.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
+        exportcsvDiemButton.setForeground(new Color(255, 255, 255));
         exportcsvDiemButton.setText("Export csv");
-        exportcsvDiemButton.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        quanLyHoSoPanel2.add(exportcsvDiemButton);
+        exportcsvDiemButton.setBorder(BorderFactory.createTitledBorder(""));
+
         exportcsvDiemButton.setBounds(10, 350, 100, 30);
-        
-        // idDiemTextField
-        idDiemTextField = new javax.swing.JTextField();
-        idDiemTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        idDiemTextField.setText("ID");
-        quanLyHoSoPanel2.add(idDiemTextField);
-        idDiemTextField.setBounds(610, 60, 170, 30);
+        exportcsvDiemButton.setFocusable(false);
 
-        // hoDiemTextField
-        hoDiemTextField = new javax.swing.JTextField();
-        hoDiemTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        hoDiemTextField.setText("Họ");
-        quanLyHoSoPanel2.add(hoDiemTextField);
-        hoDiemTextField.setBounds(610, 100, 170, 30);
+        // idDiemLabel
+        idDiemLabel = new JLabel();
+        idDiemLabel.setText("ID:");
 
-        // tenDiemTextField
-        tenDiemTextField = new javax.swing.JTextField();
-        tenDiemTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tenDiemTextField.setText("Tên");
-        quanLyHoSoPanel2.add(tenDiemTextField);
-        tenDiemTextField.setBounds(610, 140, 170, 30);
+        idDiemLabel.setBounds(610, 50, 40, 20);
 
-        //homeworkTextField
-        homeworkTextField = new javax.swing.JTextField();
-        homeworkTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        homeworkTextField.setText("Điểm Toán");
-        quanLyHoSoPanel2.add(homeworkTextField);
-        homeworkTextField.setBounds(610, 220, 170, 30);
+        // hoDiemLabel
+        hoDiemLabel = new JLabel();
+        hoDiemLabel.setText("Họ");
 
-        //finalTextField
-        
-        //idHoSoTextField
+        hoDiemLabel.setBounds(610, 100, 30, 20);
 
-        // diaChiHoSoTextField
-        diaChiHoSoTextField = new javax.swing.JTextField();
-        diaChiHoSoTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        quanLyHoSoPanel.add(diaChiHoSoTextField);
-        diaChiHoSoTextField.setBounds(590, 220, 190, 30);
+        // tenDiemLabel
+        tenDiemLabel = new JLabel();
+        tenDiemLabel.setText("Tên:");
 
-        // 
-        mainPanel = new javax.swing.JPanel();
-        tabPanel = new javax.swing.JTabbedPane();
-        quanLyDiemPanel = new javax.swing.JPanel();
-        quanLyHoSoPanel2 = new javax.swing.JPanel();
-        titleDiemTextField = new javax.swing.JTextField();
-        timkiemDiemTextField = new javax.swing.JTextField();
-        midternTextField = new javax.swing.JTextField();
-        finalTextField = new javax.swing.JTextField();
+        tenDiemLabel.setBounds(610, 150, 37, 20);
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        diemTable = new javax.swing.JTable();
-        
-        
-        quanLyHoSoPanel = new javax.swing.JPanel();
-        titleHosoTextField = new javax.swing.JTextField();
-        timkiemHoSoTextField = new javax.swing.JTextField();
-        hoHoSoTextField = new javax.swing.JTextField();
-        tenHoSoTextField = new javax.swing.JTextField();
-        idHoSoTextField = new javax.swing.JTextField();
-        ngaysinhTextField = new javax.swing.JTextField();
-        
-        sodienthoaiTextField = new javax.swing.JTextField();
-        themHoSoButton = new javax.swing.JButton();
-        suaHoSoButton = new javax.swing.JButton();
-        emailTextField = new javax.swing.JTextField();
-        xoaHoSoButton = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        hoSoTable = new javax.swing.JTable();
-        exportcsvHoSoButton = new javax.swing.JButton();
+        // diembaitapLabel
+        diembaitapLabel = new JLabel();
+        diembaitapLabel.setText("Điểm bài tập:");
 
-        dangxuatButton = new javax.swing.JButton();
+        diembaitapLabel.setBounds(610, 200, 80, 20);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
+        // diemgiuakyLabel
+        diemgiuakyLabel = new JLabel();
+        diemgiuakyLabel.setText("Điểm giữa kỳ:");
 
-        mainPanel.setBackground(new java.awt.Color(255, 255, 255));
-        mainPanel.setLayout(null);
+        diemgiuakyLabel.setBounds(610, 250, 80, 20);
 
-        tabPanel.setBackground(new java.awt.Color(255, 255, 255));
+        // diemcuoikyLabel
+        diemcuoikyLabel = new JLabel();
+        diemcuoikyLabel.setText("Điểm cuối kỳ:");
+        diemcuoikyLabel.setBounds(610, 300, 80, 20);
 
+        // quanLyDiemPanel
+        quanLyDiemPanel = new JPanel();
         quanLyDiemPanel.setLayout(null);
+        quanLyDiemPanel.setBackground(new Color(252, 202, 207));
+        quanLyDiemPanel.add(titleDiemField);
+        quanLyDiemPanel.add(timkiemDiemField);
+        quanLyDiemPanel.add(idDiemField);
+        quanLyDiemPanel.add(hoDiemField);
+        quanLyDiemPanel.add(tenDiemField);
+        quanLyDiemPanel.add(diembaitapField);
+        quanLyDiemPanel.add(diemgiuakyField);
+        quanLyDiemPanel.add(diemcuoikyField);
+        quanLyDiemPanel.add(themDiemButton);
+        quanLyDiemPanel.add(suaDiemButton);
+        quanLyDiemPanel.add(xoaDiemButton);
+        quanLyDiemPanel.add(diemScrollPane);
+        quanLyDiemPanel.add(exportcsvDiemButton);
+        quanLyDiemPanel.add(idDiemLabel);
+        quanLyDiemPanel.add(hoDiemLabel);
+        quanLyDiemPanel.add(tenDiemLabel);
+        quanLyDiemPanel.add(diembaitapLabel);
+        quanLyDiemPanel.add(diemgiuakyLabel);
+        quanLyDiemPanel.add(diemcuoikyLabel);
 
-        quanLyHoSoPanel2.setBackground(new java.awt.Color(204, 204, 204));
-        quanLyHoSoPanel2.setLayout(null);
+        // hoso
+        // titleHosoField
+        titleHosoField = new JTextField();
+        titleHosoField.setEditable(false);
+        titleHosoField.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
+        titleHosoField.setHorizontalAlignment(JTextField.CENTER);
+        titleHosoField.setText("Hồ Sơ");
+        titleHosoField.setBorder(null);
+        titleHosoField.setBounds(10, 10, 580, 20);
 
-        titleDiemTextField.setEditable(false);
-        titleDiemTextField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        titleDiemTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        titleDiemTextField.setText("Điểm");
-        titleDiemTextField.setBorder(null);
-        quanLyHoSoPanel2.add(titleDiemTextField);
-        titleDiemTextField.setBounds(10, 10, 580, 20);
+        // timkiemHoSoField
+        timkiemHoSoField = new JTextField();
+        timkiemHoSoField.setBackground(new Color(204, 255, 255));
+        timkiemHoSoField.setFont(new Font("Segoe UI", 2, 12)); // NOI18N
+        timkiemHoSoField.setHorizontalAlignment(JTextField.CENTER);
+        timkiemHoSoField.setText("Tìm kiếm");
 
-        timkiemDiemTextField.setBackground(new java.awt.Color(204, 255, 255));
-        timkiemDiemTextField.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
-        timkiemDiemTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        timkiemDiemTextField.setText("Tìm kiếm");
-        quanLyHoSoPanel2.add(timkiemDiemTextField);
-        timkiemDiemTextField.setBounds(610, 10, 170, 40);
+        timkiemHoSoField.setBounds(610, 10, 170, 30);
 
+        // idHoSoField
+        idHoSoField = new JTextField();
+        idHoSoField.setHorizontalAlignment(JTextField.CENTER);
 
+        idHoSoField.setBounds(610, 60, 170, 22);
 
-        midternTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        midternTextField.setText("Điểm Văn");
-        quanLyHoSoPanel2.add(midternTextField);
-        midternTextField.setBounds(610, 180, 170, 30);
+        // hoHoSoField
+        hoHoSoField = new JTextField();
+        hoHoSoField.setHorizontalAlignment(JTextField.CENTER);
 
+        hoHoSoField.setBounds(610, 100, 170, 20);
+        // tenHoSoField
+        tenHoSoField = new JTextField();
+        tenHoSoField.setHorizontalAlignment(JTextField.CENTER);
 
-        finalTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        finalTextField.setText("Điểm Anh");
-        quanLyHoSoPanel2.add(finalTextField);
-        finalTextField.setBounds(610, 260, 170, 30);
+        tenHoSoField.setBounds(610, 140, 170, 20);
 
-        diemTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {
+        // ngaysinhHoSoField
+        ngaysinhHoSoField = new JTextField();
+        ngaysinhHoSoField.setHorizontalAlignment(JTextField.CENTER);
 
-                },
-                new String[] {
+        ngaysinhHoSoField.setBounds(610, 180, 170, 20);
 
-                }));
-        jScrollPane1.setViewportView(diemTable);
+        // diachiHoSoField
+        diachiHoSoField = new JTextField();
+        diachiHoSoField.setHorizontalAlignment(JTextField.CENTER);
 
-        quanLyHoSoPanel2.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 30, 580, 310);
+        diachiHoSoField.setBounds(610, 220, 170, 20);
+        // emailHoSoField
+        emailHoSoField = new JTextField();
+        emailHoSoField.setHorizontalAlignment(JTextField.CENTER);
+        emailHoSoField.setBounds(610, 300, 170, 20);
 
-        
-        
-        
-        
-        
-        
-        
+        // tongiaoHoSoField
+        tongiaoHoSoField = new JTextField();
+        tongiaoHoSoField.setHorizontalAlignment(JTextField.CENTER);
 
-        
-        
-        
-        
+        tongiaoHoSoField.setBounds(610, 260, 170, 20);
 
-        quanLyDiemPanel.add(quanLyHoSoPanel2);
-        quanLyHoSoPanel2.setBounds(0, 0, 790, 399);
-
-        tabPanel.addTab("Quản lý điểm", quanLyDiemPanel);
-
-        quanLyHoSoPanel.setBackground(new java.awt.Color(204, 204, 204));
-        quanLyHoSoPanel.setLayout(null);
-
-        titleHosoTextField.setEditable(false);
-        titleHosoTextField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        titleHosoTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        titleHosoTextField.setText("Hồ Sơ");
-        titleHosoTextField.setBorder(null);
-        quanLyHoSoPanel.add(titleHosoTextField);
-        titleHosoTextField.setBounds(10, 10, 570, 20);
-
-        timkiemHoSoTextField.setBackground(new java.awt.Color(204, 255, 255));
-        timkiemHoSoTextField.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
-        timkiemHoSoTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        timkiemHoSoTextField.setText("Tìm kiếm");
-        quanLyHoSoPanel.add(timkiemHoSoTextField);
-        timkiemHoSoTextField.setBounds(590, 10, 190, 40);
-
-        hoHoSoTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        quanLyHoSoPanel.add(hoHoSoTextField);
-        hoHoSoTextField.setBounds(590, 100, 190, 30);
-
-        tenHoSoTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        quanLyHoSoPanel.add(tenHoSoTextField);
-        tenHoSoTextField.setBounds(590, 140, 190, 30);
-
-        idHoSoTextField.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        idHoSoTextField.setDisabledTextColor(new java.awt.Color(153, 153, 153));
-        idHoSoTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                idHoSoTextFieldKeyTyped(evt);
-            }
-        });
-        quanLyHoSoPanel.add(idHoSoTextField);
-        idHoSoTextField.setBounds(590, 60, 190, 30);
-
-        ngaysinhTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        quanLyHoSoPanel.add(ngaysinhTextField);
-        ngaysinhTextField.setBounds(590, 180, 190, 30);
-
-        
-        
-        
-
-        sodienthoaiTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        quanLyHoSoPanel.add(sodienthoaiTextField);
-        sodienthoaiTextField.setBounds(590, 260, 190, 30);
-
-        themHoSoButton.setBackground(new java.awt.Color(52, 235, 95));
-        themHoSoButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        themHoSoButton.setForeground(new java.awt.Color(255, 255, 255));
-        themHoSoButton.setText("Thêm");
-        quanLyHoSoPanel.add(themHoSoButton);
-        themHoSoButton.setBounds(550, 360, 70, 30);
-
-        suaHoSoButton.setBackground(new java.awt.Color(52, 235, 95));
-        suaHoSoButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        suaHoSoButton.setForeground(new java.awt.Color(255, 255, 255));
+        // suaHoSoButton
+        suaHoSoButton = new JButton();
+        suaHoSoButton.setBackground(new Color(52, 235, 95));
+        suaHoSoButton.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
+        suaHoSoButton.setForeground(new Color(255, 255, 255));
         suaHoSoButton.setText("Sửa");
-        quanLyHoSoPanel.add(suaHoSoButton);
+
         suaHoSoButton.setBounds(630, 360, 70, 30);
+        suaHoSoButton.setFocusable(false);
 
-        emailTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        quanLyHoSoPanel.add(emailTextField);
-        emailTextField.setBounds(590, 300, 190, 30);
-
-        xoaHoSoButton.setBackground(new java.awt.Color(52, 235, 95));
-        xoaHoSoButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        xoaHoSoButton.setForeground(new java.awt.Color(255, 255, 255));
+        // xoaHoSoButton
+        xoaHoSoButton = new JButton();
+        xoaHoSoButton.setBackground(new Color(52, 235, 95));
+        xoaHoSoButton.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
+        xoaHoSoButton.setForeground(new Color(255, 255, 255));
         xoaHoSoButton.setText("Xóa");
-        quanLyHoSoPanel.add(xoaHoSoButton);
+
         xoaHoSoButton.setBounds(710, 360, 70, 30);
+        xoaHoSoButton.setFocusable(false);
 
-        hoSoTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {
-                        {},
-                        {},
-                        {},
-                        {}
-                },
-                new String[] {
+        // hoSoTable
+        String[] columnNameHoSo = {};
+        tableModelHoSo = new DefaultTableModel(columnNameHoSo, 0);
+        hoSoTable = new JTable(tableModelHoSo);
+        Object[] rowHoSo = {};
 
-                }));
-        jScrollPane2.setViewportView(hoSoTable);
+        // hosoScrollPane
+        hosoScrollPane = new JScrollPane();
+        hosoScrollPane.setViewportView(hoSoTable);
 
-        quanLyHoSoPanel.add(jScrollPane2);
-        jScrollPane2.setBounds(10, 30, 570, 310);
+        hosoScrollPane.setBounds(10, 30, 580, 310);
 
-        exportcsvHoSoButton.setBackground(new java.awt.Color(102, 102, 102));
-        exportcsvHoSoButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        exportcsvHoSoButton.setForeground(new java.awt.Color(255, 255, 255));
+        // exportcsvHoSoButton
+        exportcsvHoSoButton = new JButton();
+        exportcsvHoSoButton.setBackground(new Color(102, 102, 102));
+        exportcsvHoSoButton.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
+        exportcsvHoSoButton.setForeground(new Color(255, 255, 255));
         exportcsvHoSoButton.setText("Export csv");
-        exportcsvHoSoButton.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        quanLyHoSoPanel.add(exportcsvHoSoButton);
+        exportcsvHoSoButton.setBorder(BorderFactory.createTitledBorder(""));
         exportcsvHoSoButton.setBounds(10, 350, 100, 30);
+        exportcsvHoSoButton.setFocusable(false);
 
+        // idHoSoLabel
+        idHoSoLabel = new JLabel();
+        idHoSoLabel.setText("ID:");
+        idHoSoLabel.setBounds(610, 40, 40, 20);
+
+        // hoHoSoLabel
+        hoHoSoLabel = new JLabel();
+        hoHoSoLabel.setText("Họ");
+        hoHoSoLabel.setBounds(610, 80, 30, 20);
+
+        // tenHoSoLabel
+        tenHoSoLabel = new JLabel();
+        tenHoSoLabel.setText("Tên:");
+        tenHoSoLabel.setBounds(610, 120, 37, 20);
+
+        // ngaysinhHoSoLabel
+        ngaysinhHoSoLabel = new JLabel();
+        ngaysinhHoSoLabel.setText("Ngày sinh:");
+        ngaysinhHoSoLabel.setBounds(610, 160, 60, 16);
+
+        // diachiHoSoLabel
+        diachiHoSoLabel = new JLabel();
+        diachiHoSoLabel.setText("Địa chỉ:");
+        diachiHoSoLabel.setBounds(610, 200, 50, 16);
+
+        // tongiaoHoSoLabel
+        tongiaoHoSoLabel = new JLabel();
+        tongiaoHoSoLabel.setText("Tôn giáo");
+        tongiaoHoSoLabel.setBounds(610, 240, 80, 16);
+
+        // emailHoSoLabel
+        emailHoSoLabel = new JLabel();
+        emailHoSoLabel.setText("Email");
+        emailHoSoLabel.setBounds(610, 280, 80, 16);
+
+        // quanLyHoSoPanel
+        quanLyHoSoPanel = new JPanel();
+        quanLyHoSoPanel.setBackground(new Color(252, 202, 207));
+        quanLyHoSoPanel.setLayout(null);
+        quanLyHoSoPanel.add(titleHosoField);
+        quanLyHoSoPanel.add(timkiemHoSoField);
+        quanLyHoSoPanel.add(idHoSoField);
+        quanLyHoSoPanel.add(hoHoSoField);
+        quanLyHoSoPanel.add(tenHoSoField);
+        quanLyHoSoPanel.add(ngaysinhHoSoField);
+        quanLyHoSoPanel.add(diachiHoSoField);
+        quanLyHoSoPanel.add(tongiaoHoSoField);
+        quanLyHoSoPanel.add(emailHoSoField);
+        quanLyHoSoPanel.add(suaHoSoButton);
+        quanLyHoSoPanel.add(xoaHoSoButton);
+        quanLyHoSoPanel.add(hosoScrollPane);
+        quanLyHoSoPanel.add(exportcsvHoSoButton);
+        quanLyHoSoPanel.add(idHoSoLabel);
+        quanLyHoSoPanel.add(hoHoSoLabel);
+        quanLyHoSoPanel.add(tenHoSoLabel);
+        quanLyHoSoPanel.add(ngaysinhHoSoLabel);
+        quanLyHoSoPanel.add(diachiHoSoLabel);
+        quanLyHoSoPanel.add(tongiaoHoSoLabel);
+        quanLyHoSoPanel.add(emailHoSoLabel);
+
+        // tabPanel
+        tabPanel = new JTabbedPane();
+        tabPanel.setBackground(new Color(255, 255, 255));
+
+        tabPanel.setBounds(20, 40, 790, 430);
+        tabPanel.addTab("Quản lý điểm", quanLyDiemPanel);
         tabPanel.addTab("Quản lý hồ sơ", quanLyHoSoPanel);
 
-        mainPanel.add(tabPanel);
-        tabPanel.setBounds(20, 40, 790, 430);
+        // titleMainLabel
+        titleMainLabel = new JLabel();
+        titleMainLabel.setFont(new Font("Segoe UI", 1, 24)); // NOI18N
+        titleMainLabel.setForeground(new Color(52, 113, 235));
+        titleMainLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        titleMainLabel.setText("QUẢN LÝ ĐIỂM VÀ HỒ SƠ");
 
-        dangxuatButton.setBackground(new java.awt.Color(255, 102, 102));
-        dangxuatButton.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        dangxuatButton.setForeground(new java.awt.Color(255, 255, 255));
+        titleMainLabel.setBounds(230, 10, 340, 32);
+
+        // dangxuatButton
+        dangxuatButton = new JButton();
+        dangxuatButton.setBackground(new Color(255, 102, 102));
+        dangxuatButton.setFont(new Font("Segoe UI", 3, 12)); // NOI18N
+        dangxuatButton.setForeground(new Color(255, 255, 255));
         dangxuatButton.setText("Đăng xuất");
-        mainPanel.add(dangxuatButton);
-        dangxuatButton.setBounds(720, 10, 90, 30);
+        dangxuatButton.setBounds(720, 10, 100, 30);
+        dangxuatButton.setFocusable(false);
 
-        getContentPane().add(mainPanel);
+        // mainPanel
+        mainPanel = new JPanel();
         mainPanel.setBounds(0, 0, 840, 480);
-
+        mainPanel.setBackground(new Color(255, 255, 255));
+        mainPanel.setLayout(null);
+        mainPanel.add(tabPanel);
+        mainPanel.add(titleMainLabel);
+        mainPanel.add(dangxuatButton);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
+        getContentPane().add(mainPanel);
+        setSize(840, 520);
+        setPreferredSize(getSize());
+        setVisible(true);
         pack();
+
+    }
+
+    public static void main(String[] args) {
+        new GiaoVienQuanLy();
     }
 }
