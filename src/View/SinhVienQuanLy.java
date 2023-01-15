@@ -261,8 +261,13 @@ public class SinhVienQuanLy extends JFrame {
         getContentPane().setLayout(null);
         setSize(840,520);
         setPreferredSize(getSize());
-        setVisible(true);
+        setResizable(false);
+        setLocationRelativeTo(null);
         pack();
+    }
+
+    public void addLogoutListener(ActionListener listener){
+        dangxuatButton.addActionListener(listener);
     }
 
     public void onNamRadio(ActionEvent e){
@@ -278,6 +283,6 @@ public class SinhVienQuanLy extends JFrame {
     }
 
     public static void main(String[] args) {
-        new SinhVienQuanLy();
+        new SinhVienQuanLy().setVisible(true);;
     }
 }

@@ -1,10 +1,13 @@
 package View;
 
 import javax.swing.*;
+import javax.swing.event.MouseInputAdapter;
+
 import java.awt.*;
+import java.awt.event.*;
 
 public class DangKy extends JFrame {
-    private JButton dangnhapButton;
+    private JButton dangkyButton;
     private JLabel dangnhapLabel;
     private JTextField emailField;
     private JLabel emailLabel;
@@ -104,13 +107,13 @@ public class DangKy extends JFrame {
         nhaplaimatkhauField.setBounds(50, 330, 250, 30);
 
         // dangnhapButton
-        dangnhapButton = new JButton();
-        dangnhapButton.setBackground(new Color(252, 3, 90));
-        dangnhapButton.setFont(new Font("Segoe UI", 1, 13)); 
-        dangnhapButton.setForeground(new Color(255, 255, 255));
-        dangnhapButton.setText("Đăng ký");
+        dangkyButton = new JButton();
+        dangkyButton.setBackground(new Color(252, 3, 90));
+        dangkyButton.setFont(new Font("Segoe UI", 1, 13)); 
+        dangkyButton.setForeground(new Color(255, 255, 255));
+        dangkyButton.setText("Đăng ký");
 
-        dangnhapButton.setBounds(120, 370, 102, 30);
+        dangkyButton.setBounds(120, 370, 102, 30);
 
         // dangnhapLabel
         dangnhapLabel = new JLabel();
@@ -136,7 +139,7 @@ public class DangKy extends JFrame {
         panel1.add(matkhauField);
         panel1.add(nhaplaimatkhauLabel);
         panel1.add(nhaplaimatkhauField);
-        panel1.add(dangnhapButton);
+        panel1.add(dangkyButton);
         panel1.add(dangnhapLabel);
 
         // panel2
@@ -155,11 +158,22 @@ public class DangKy extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
         setSize(700,480);
+        setLocationRelativeTo(null);
+        setResizable(false);
         setPreferredSize(getSize());
-        setVisible(true);
         pack();
+        
 
     }
+
+    public void addDangNhapListenner(MouseInputAdapter listener){
+        dangnhapLabel.addMouseListener(listener);
+    }
+
+    public void addDangKyListener(ActionListener listener){
+        dangkyButton.addActionListener(listener);
+    }
+
     public static void main(String[] args) {
         new DangKy();
     }

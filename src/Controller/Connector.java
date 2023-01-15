@@ -11,15 +11,7 @@ public class Connector {
         String pwd = "";
         try {
             conn = DriverManager.getConnection(url, user, pwd);
-            Statement statement = conn.createStatement();
-            String query = "INSERT INTO `user`(`id`, `firstname`, `lastname`, `email`, `password`, `religion`, `address`, `role_id`, `create_at`, `update_at`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]','2023/10/01','2023/10/01')";
-            int count =statement.executeUpdate(query);
-            if(count==0){
-                System.out.println("Record Not Inserted");
-            }
-            else {
-                System.out.println("Record Inserted");
-            } 
+            System.out.println("Connected");
             
         } catch (Exception e) {
             System.out.println("Error" + e);

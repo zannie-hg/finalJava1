@@ -3,56 +3,61 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.*;
 
 public class GiaoVienQuanLy extends JFrame {
-    private javax.swing.JButton xoaDiemButton;
-    private javax.swing.JButton dangxuatButton;
-    private javax.swing.JTextField diachiHoSoField;
-    private javax.swing.JLabel diachiHoSoLabel;
-    private javax.swing.JTable diemTable;
-    private javax.swing.JTextField diembaitapField;
-    private javax.swing.JLabel diembaitapLabel;
-    private javax.swing.JTextField diemcuoikyField;
-    private javax.swing.JLabel diemcuoikyLabel;
-    private javax.swing.JTextField diemgiuakyField;
-    private javax.swing.JLabel diemgiuakyLabel;
-    private javax.swing.JTextField emailHoSoField;
-    private javax.swing.JLabel emailHoSoLabel;
-    private javax.swing.JButton exportcsvDiemButton;
-    private javax.swing.JButton exportcsvHoSoButton;
-    private javax.swing.JTextField hoDiemField;
-    private javax.swing.JTextField hoHoSoField;
-    private javax.swing.JLabel hoHoSoLabel;
-    private javax.swing.JLabel hoDiemLabel;
-    private javax.swing.JTable hoSoTable;
-    private javax.swing.JTextField idDiemField;
-    private javax.swing.JTextField idHoSoField;
-    private javax.swing.JLabel idHoSoLabel;
-    private javax.swing.JLabel idDiemLabel;
-    private javax.swing.JScrollPane diemScrollPane;
-    private javax.swing.JScrollPane hosoScrollPane;
-    private javax.swing.JPanel mainPanel;
-    private javax.swing.JTextField ngaysinhHoSoField;
-    private javax.swing.JLabel ngaysinhHoSoLabel;
-    private javax.swing.JPanel quanDiemPanel;
-    private javax.swing.JPanel quanLyDiemPanel;
-    private javax.swing.JPanel quanLyHoSoPanel;
-    private javax.swing.JButton suaHoSoButton;
-    private javax.swing.JButton suaDiemButton;
-    private javax.swing.JTabbedPane tabPanel;
-    private javax.swing.JTextField tenDiemField;
-    private javax.swing.JTextField tenHoSoField;
-    private javax.swing.JLabel tenHoSoLabel;
-    private javax.swing.JLabel tenDiemLabel;
-    private javax.swing.JButton themDiemButton;
-    private javax.swing.JTextField timkiemDiemField;
-    private javax.swing.JTextField timkiemHoSoField;
-    private javax.swing.JTextField titleDiemField;
-    private javax.swing.JTextField titleHosoField;
-    private javax.swing.JLabel titleMainLabel;
-    private javax.swing.JTextField tongiaoHoSoField;
-    private javax.swing.JLabel tongiaoHoSoLabel;
-    private javax.swing.JButton xoaHoSoButton;
+    private JButton xoaDiemButton;
+    private JButton dangxuatButton;
+    private JTextField diachiHoSoField;
+    private JLabel diachiHoSoLabel;
+    private JTable diemTable;
+    private JTextField diembaitapField;
+    private JLabel diembaitapLabel;
+    private JTextField diemcuoikyField;
+    private JLabel diemcuoikyLabel;
+    private JTextField diemgiuakyField;
+    private JLabel diemgiuakyLabel;
+    private JTextField emailHoSoField;
+    private JLabel emailHoSoLabel;
+    private JButton exportcsvDiemButton;
+    private JButton exportcsvHoSoButton;
+    private JTextField hoDiemField;
+    private JTextField hoHoSoField;
+    private JLabel hoHoSoLabel;
+    private JLabel hoDiemLabel;
+    private JLabel namhocLabel;
+    private JComboBox namhocComboBox;
+    private JLabel monhocLabel;
+    private JComboBox monhocComboBox;
+    private JTable hoSoTable;
+    private JTextField idDiemField;
+    private JTextField idHoSoField;
+    private JLabel idHoSoLabel;
+    private JLabel idDiemLabel;
+    private JScrollPane diemScrollPane;
+    private JScrollPane hosoScrollPane;
+    private JPanel mainPanel;
+    private JTextField ngaysinhHoSoField;
+    private JLabel ngaysinhHoSoLabel;
+    private JPanel quanDiemPanel;
+    private JPanel quanLyDiemPanel;
+    private JPanel quanLyHoSoPanel;
+    private JButton suaHoSoButton;
+    private JButton suaDiemButton;
+    private JTabbedPane tabPanel;
+    private JTextField tenDiemField;
+    private JTextField tenHoSoField;
+    private JLabel tenHoSoLabel;
+    private JLabel tenDiemLabel;
+    private JButton themDiemButton;
+    private JTextField timkiemDiemField;
+    private JTextField timkiemHoSoField;
+    private JTextField titleDiemField;
+    private JTextField titleHosoField;
+    private JLabel titleMainLabel;
+    private JTextField tongiaoHoSoField;
+    private JLabel tongiaoHoSoLabel;
+    private JButton xoaHoSoButton;
     public DefaultTableModel tableModelDiem, tableModelHoSo;
 
     public GiaoVienQuanLy() {
@@ -69,7 +74,7 @@ public class GiaoVienQuanLy extends JFrame {
         titleDiemField.setHorizontalAlignment(JTextField.CENTER);
         titleDiemField.setText("Điểm");
         titleDiemField.setBorder(null);
-        titleDiemField.setBounds(10, 10, 580, 20);
+        titleDiemField.setBounds(10, 40, 580, 20);
 
         // timkiemDiemField
         timkiemDiemField = new JTextField();
@@ -146,6 +151,29 @@ public class GiaoVienQuanLy extends JFrame {
         xoaDiemButton.setBounds(710, 360, 70, 30);
         xoaDiemButton.setFocusable(false);
 
+        //namhoLabel
+        namhocLabel = new JLabel("Năm học:");
+        namhocLabel.setBounds(10,10,60,20);
+
+        //namhocComboBox
+        namhocComboBox = new JComboBox<>();
+        namhocComboBox.setModel(new DefaultComboBoxModel<>(
+            new String[] { "2022-2023", "2023-2024", "2024-2025", "2025-2026" }));
+
+        namhocComboBox.setBounds(70, 10, 100, 22);
+
+        //monhocLabel
+        monhocLabel = new JLabel("Môn học:");
+        monhocLabel.setBounds(200,10,60,20);
+
+        //monhocComboBox
+        monhocComboBox = new JComboBox<>();
+        monhocComboBox.setModel(new DefaultComboBoxModel<>(
+            new String[] { "2022-2023", "2023-2024", "2024-2025", "2025-2026" }));
+        
+
+        monhocComboBox.setBounds(260, 10, 100, 22);
+        
         // diemTable
         String[] columnNameDiem = {};
         tableModelDiem = new DefaultTableModel(columnNameDiem, 0);
@@ -156,7 +184,7 @@ public class GiaoVienQuanLy extends JFrame {
         diemScrollPane = new JScrollPane();
         diemScrollPane.setViewportView(diemTable);
 
-        diemScrollPane.setBounds(10, 30, 580, 310);
+        diemScrollPane.setBounds(10, 60, 580, 290);
 
         // exportcsvDiemButton
         exportcsvDiemButton = new JButton();
@@ -216,7 +244,6 @@ public class GiaoVienQuanLy extends JFrame {
         quanLyDiemPanel.add(diembaitapField);
         quanLyDiemPanel.add(diemgiuakyField);
         quanLyDiemPanel.add(diemcuoikyField);
-        quanLyDiemPanel.add(themDiemButton);
         quanLyDiemPanel.add(suaDiemButton);
         quanLyDiemPanel.add(xoaDiemButton);
         quanLyDiemPanel.add(diemScrollPane);
@@ -227,6 +254,10 @@ public class GiaoVienQuanLy extends JFrame {
         quanLyDiemPanel.add(diembaitapLabel);
         quanLyDiemPanel.add(diemgiuakyLabel);
         quanLyDiemPanel.add(diemcuoikyLabel);
+        quanLyDiemPanel.add(namhocLabel);
+        quanLyDiemPanel.add(namhocComboBox);
+        quanLyDiemPanel.add(monhocLabel);
+        quanLyDiemPanel.add(monhocComboBox);
 
         // hoso
         // titleHosoField
@@ -426,13 +457,18 @@ public class GiaoVienQuanLy extends JFrame {
         getContentPane().setLayout(null);
         getContentPane().add(mainPanel);
         setSize(840, 520);
+        setResizable(false);
         setPreferredSize(getSize());
-        setVisible(true);
+        setLocationRelativeTo(null);
         pack();
 
     }
 
+    public void addLogoutListener(ActionListener actionListener){
+        dangxuatButton.addActionListener(actionListener);
+    }
+
     public static void main(String[] args) {
-        new GiaoVienQuanLy();
+        new GiaoVienQuanLy().setVisible(true);;
     }
 }

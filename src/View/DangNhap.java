@@ -1,6 +1,8 @@
 package View;
 
 import javax.swing.*;
+import javax.swing.event.MouseInputAdapter;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -97,12 +99,26 @@ public class DangNhap extends JFrame {
         getContentPane().setLayout(null);
         setSize(564,370);
         setPreferredSize(getSize());
-        setVisible(true);
+        setResizable(false);
+        setLocationRelativeTo(null);
         pack();
     }
     
-    public void addAddSinhVienListener(ActionListener listener){
-        dangkyLabel.addActionListener(listener);
+    public void addDangKyListener(MouseInputAdapter listener){
+        dangkyLabel.addMouseListener(listener);
+    }
+
+    public void addDangNhapListenner(ActionListener listener){
+        dangnhapButton.addActionListener(listener);
+    }
+
+    public String[] getLoginInfo(){
+        String[] field = {emailField.getText(), String.copyValueOf(matkhauField.getPassword())};
+        return field;
+    }
+
+    public static void main(String[] args) {
+        new DangNhap().setVisible(true);
     }
 
 }
