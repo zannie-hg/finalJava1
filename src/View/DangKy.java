@@ -5,6 +5,7 @@ import javax.swing.event.MouseInputAdapter;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.*;
 
 public class DangKy extends JFrame {
     private JButton dangkyButton;
@@ -83,6 +84,7 @@ public class DangKy extends JFrame {
         ngaysinhCalendar = new com.toedter.calendar.JDateChooser();
 
         ngaysinhCalendar.setBounds(50, 210, 250, 30);
+        ngaysinhCalendar.setDateFormatString("yyyy-MM-dd");
 
         // matkhauLabel
         matkhauLabel = new JLabel();
@@ -172,6 +174,17 @@ public class DangKy extends JFrame {
 
     public void addDangKyListener(ActionListener listener){
         dangkyButton.addActionListener(listener);
+    }
+
+    public String[] getRegisterInfo(){
+        String[] info = new String[6];
+        info[0] = tenField.getText();
+        info[1] = hoField.getText();
+        info[2] = emailField.getText();
+        info[3] = new SimpleDateFormat("yyyy-mm-dd").format(ngaysinhCalendar.getDate());
+        info[4] = String.copyValueOf(matkhauField.getPassword());
+        info[5] = String.copyValueOf(nhaplaimatkhauField.getPassword());
+        return info;
     }
 
     public static void main(String[] args) {

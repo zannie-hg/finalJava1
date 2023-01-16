@@ -6,6 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 
 public class GiaoVienQuanLy extends JFrame {
+    private JLabel helloLabel;
     private JButton xoaDiemButton;
     private JButton dangxuatButton;
     private JTextField diachiHoSoField;
@@ -59,14 +60,16 @@ public class GiaoVienQuanLy extends JFrame {
     private JLabel tongiaoHoSoLabel;
     private JButton xoaHoSoButton;
     public DefaultTableModel tableModelDiem, tableModelHoSo;
-
-    public GiaoVienQuanLy() {
+    private String username;
+    public GiaoVienQuanLy(String username) {
+        this.username = username;
         initComponents();
     }
 
     public void initComponents() {
         // diem
         // titleDiemField
+        
         // titleHosoField
         titleDiemField = new JTextField();
         titleDiemField.setEditable(false);
@@ -427,6 +430,10 @@ public class GiaoVienQuanLy extends JFrame {
         tabPanel.addTab("Quản lý điểm", quanLyDiemPanel);
         tabPanel.addTab("Quản lý hồ sơ", quanLyHoSoPanel);
 
+        //helloLabel
+        helloLabel = new JLabel("Xin chào, "+username);
+        helloLabel.setBounds(10, 10, 100, 20);
+
         // titleMainLabel
         titleMainLabel = new JLabel();
         titleMainLabel.setFont(new Font("Segoe UI", 1, 24)); // NOI18N
@@ -451,6 +458,7 @@ public class GiaoVienQuanLy extends JFrame {
         mainPanel.setBackground(new Color(255, 255, 255));
         mainPanel.setLayout(null);
         mainPanel.add(tabPanel);
+        mainPanel.add(helloLabel);
         mainPanel.add(titleMainLabel);
         mainPanel.add(dangxuatButton);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -464,11 +472,40 @@ public class GiaoVienQuanLy extends JFrame {
 
     }
 
+    public void addSuaDiemListener(ActionListener actionListener){
+        suaDiemButton.addActionListener(actionListener);
+    }
+
+    public void addXoaDiemListener(ActionListener actionListener){
+        xoaDiemButton.addActionListener(actionListener);
+    }
+
+    public void addExportcsvDiemListener(ActionListener actionListener){
+        exportcsvDiemButton.addActionListener(actionListener);
+    }
+
+    public void addSuaHoSoListener(ActionListener actionListener){
+        suaHoSoButton.addActionListener(actionListener);
+    }
+
+    public void addXoaHoSoListener(ActionListener actionListener){
+        xoaHoSoButton.addActionListener(actionListener);
+    }
+
+
+    public DefaultTableModel getTableModelDiem() {
+        return tableModelDiem;
+    }
+
+    public DefaultTableModel getTableModelHoSo() {
+        return tableModelHoSo;
+    }
+
     public void addLogoutListener(ActionListener actionListener){
         dangxuatButton.addActionListener(actionListener);
     }
 
     public static void main(String[] args) {
-        new GiaoVienQuanLy().setVisible(true);;
+        new GiaoVienQuanLy("Anonymous").setVisible(true);;
     }
 }

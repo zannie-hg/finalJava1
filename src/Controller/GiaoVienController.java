@@ -8,9 +8,10 @@ import javax.swing.event.MouseInputAdapter;
 public class GiaoVienController {
     GiaoVienQuanLy giaoVienQuanLy;
     AuthenController authenController;
-    public GiaoVienController(AuthenController authenController){
+
+    public GiaoVienController(AuthenController authenController, String username){
         this.authenController = authenController;
-        giaoVienQuanLy = new GiaoVienQuanLy();
+        giaoVienQuanLy = new GiaoVienQuanLy(username);
         initAction();
         giaoVienQuanLy.setVisible(true);
         
