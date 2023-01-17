@@ -74,6 +74,7 @@ public class AuthenController {
                         new GiaoVienController(this, username);
                         dangNhapView.setVisible(false);
                     } else {
+                        role = "Sinh viên";
                         new SinhVienController(this);
                         dangNhapView.setVisible(false);
                     }
@@ -147,4 +148,6 @@ public class AuthenController {
         dangKyView.setVisible(false);
         dangNhapView.setVisible(true);
     }
+
+    
 }

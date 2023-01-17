@@ -1,6 +1,8 @@
 package View;
 
 import javax.swing.*;
+import javax.swing.event.*;
+
 import java.awt.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
@@ -43,6 +45,7 @@ public class GiaoVienQuanLy extends JFrame {
     private JPanel quanDiemPanel;
     private JPanel quanLyDiemPanel;
     private JPanel quanLyHoSoPanel;
+    private JButton themHoSoButton;
     private JButton suaHoSoButton;
     private JButton suaDiemButton;
     private JTabbedPane tabPanel;
@@ -50,7 +53,7 @@ public class GiaoVienQuanLy extends JFrame {
     private JTextField tenHoSoField;
     private JLabel tenHoSoLabel;
     private JLabel tenDiemLabel;
-    private JButton themDiemButton;
+    private JButton refreshDiemButton;
     private JTextField timkiemDiemField;
     private JTextField timkiemHoSoField;
     private JTextField titleDiemField;
@@ -59,8 +62,10 @@ public class GiaoVienQuanLy extends JFrame {
     private JTextField tongiaoHoSoField;
     private JLabel tongiaoHoSoLabel;
     private JButton xoaHoSoButton;
-    public DefaultTableModel tableModelDiem, tableModelHoSo;
+    private DefaultTableModel tableModelDiem, tableModelHoSo;
+    private DefaultComboBoxModel<String> namhocModel, monhocModel;
     private String username;
+
     public GiaoVienQuanLy(String username) {
         this.username = username;
         initComponents();
@@ -69,7 +74,7 @@ public class GiaoVienQuanLy extends JFrame {
     public void initComponents() {
         // diem
         // titleDiemField
-        
+
         // titleHosoField
         titleDiemField = new JTextField();
         titleDiemField.setEditable(false);
@@ -77,7 +82,7 @@ public class GiaoVienQuanLy extends JFrame {
         titleDiemField.setHorizontalAlignment(JTextField.CENTER);
         titleDiemField.setText("Điểm");
         titleDiemField.setBorder(null);
-        titleDiemField.setBounds(10, 40, 580, 20);
+        titleDiemField.setBounds(10, 40, 760, 20);
 
         // timkiemDiemField
         timkiemDiemField = new JTextField();
@@ -86,7 +91,7 @@ public class GiaoVienQuanLy extends JFrame {
         timkiemDiemField.setHorizontalAlignment(JTextField.CENTER);
         timkiemDiemField.setText("Tìm kiếm");
 
-        timkiemDiemField.setBounds(610, 10, 170, 40);
+        timkiemDiemField.setBounds(600, 5, 170, 30);
 
         // idDiemField
         idDiemField = new JTextField();
@@ -125,14 +130,14 @@ public class GiaoVienQuanLy extends JFrame {
         diemcuoikyField.setBounds(610, 320, 170, 30);
 
         // themDiemButton
-        themDiemButton = new JButton();
-        themDiemButton.setBackground(new Color(52, 235, 95));
-        themDiemButton.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
-        themDiemButton.setForeground(new Color(255, 255, 255));
-        themDiemButton.setText("Thêm");
+        refreshDiemButton = new JButton();
+        refreshDiemButton.setBackground(new Color(52, 235, 95));
+        refreshDiemButton.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
+        refreshDiemButton.setForeground(new Color(255, 255, 255));
+        refreshDiemButton.setText("Hủy");
 
-        themDiemButton.setBounds(550, 360, 70, 30);
-        themDiemButton.setFocusable(false);
+        refreshDiemButton.setBounds(550, 360, 70, 30);
+        refreshDiemButton.setFocusable(false);
 
         // suaDiemButton
         suaDiemButton = new JButton();
@@ -154,40 +159,49 @@ public class GiaoVienQuanLy extends JFrame {
         xoaDiemButton.setBounds(710, 360, 70, 30);
         xoaDiemButton.setFocusable(false);
 
-        //namhoLabel
+        // namhoLabel
         namhocLabel = new JLabel("Năm học:");
-        namhocLabel.setBounds(10,10,60,20);
+        namhocLabel.setBounds(10, 10, 60, 20);
 
-        //namhocComboBox
+        // namhocComboBox
         namhocComboBox = new JComboBox<>();
-        namhocComboBox.setModel(new DefaultComboBoxModel<>(
-            new String[] { "2022-2023", "2023-2024", "2024-2025", "2025-2026" }));
+        namhocModel = new DefaultComboBoxModel<>();
+
+        namhocComboBox.setModel(namhocModel);
 
         namhocComboBox.setBounds(70, 10, 100, 22);
 
-        //monhocLabel
+        // monhocLabel
         monhocLabel = new JLabel("Môn học:");
-        monhocLabel.setBounds(200,10,60,20);
+        monhocLabel.setBounds(200, 10, 60, 20);
 
-        //monhocComboBox
+        // monhocComboBox
         monhocComboBox = new JComboBox<>();
-        monhocComboBox.setModel(new DefaultComboBoxModel<>(
-            new String[] { "2022-2023", "2023-2024", "2024-2025", "2025-2026" }));
-        
+        monhocModel = new DefaultComboBoxModel<>();
+        monhocComboBox.setModel(monhocModel);
 
         monhocComboBox.setBounds(260, 10, 100, 22);
-        
+
         // diemTable
-        String[] columnNameDiem = {};
-        tableModelDiem = new DefaultTableModel(columnNameDiem, 0);
+        String[] columnNameDiem = { "Mã lớp", "Họ", "Tên", "Điểm bài tập", "Giữa kỳ", "Cuối kỳ", "Môn học", "Năm học"};
+        tableModelDiem = new DefaultTableModel(columnNameDiem, 0){
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, true, true, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        };
         diemTable = new JTable(tableModelDiem);
-        Object[] rowDiem = {};
+        //set editable column
+        diemTable.getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(idDiemField));
 
         // diemScrollPane
         diemScrollPane = new JScrollPane();
         diemScrollPane.setViewportView(diemTable);
 
-        diemScrollPane.setBounds(10, 60, 580, 290);
+        diemScrollPane.setBounds(10, 60, 760, 290);
 
         // exportcsvDiemButton
         exportcsvDiemButton = new JButton();
@@ -197,7 +211,7 @@ public class GiaoVienQuanLy extends JFrame {
         exportcsvDiemButton.setText("Export csv");
         exportcsvDiemButton.setBorder(BorderFactory.createTitledBorder(""));
 
-        exportcsvDiemButton.setBounds(10, 350, 100, 30);
+        exportcsvDiemButton.setBounds(10, 360, 100, 30);
         exportcsvDiemButton.setFocusable(false);
 
         // idDiemLabel
@@ -241,22 +255,23 @@ public class GiaoVienQuanLy extends JFrame {
         quanLyDiemPanel.setBackground(new Color(252, 202, 207));
         quanLyDiemPanel.add(titleDiemField);
         quanLyDiemPanel.add(timkiemDiemField);
-        quanLyDiemPanel.add(idDiemField);
-        quanLyDiemPanel.add(hoDiemField);
-        quanLyDiemPanel.add(tenDiemField);
-        quanLyDiemPanel.add(diembaitapField);
-        quanLyDiemPanel.add(diemgiuakyField);
-        quanLyDiemPanel.add(diemcuoikyField);
+        // quanLyDiemPanel.add(idDiemField);
+        // quanLyDiemPanel.add(hoDiemField);
+        // quanLyDiemPanel.add(tenDiemField);
+        // quanLyDiemPanel.add(diembaitapField);
+        // quanLyDiemPanel.add(diemgiuakyField);
+        // quanLyDiemPanel.add(diemcuoikyField);
+        quanLyDiemPanel.add(refreshDiemButton);
         quanLyDiemPanel.add(suaDiemButton);
         quanLyDiemPanel.add(xoaDiemButton);
         quanLyDiemPanel.add(diemScrollPane);
         quanLyDiemPanel.add(exportcsvDiemButton);
-        quanLyDiemPanel.add(idDiemLabel);
-        quanLyDiemPanel.add(hoDiemLabel);
-        quanLyDiemPanel.add(tenDiemLabel);
-        quanLyDiemPanel.add(diembaitapLabel);
-        quanLyDiemPanel.add(diemgiuakyLabel);
-        quanLyDiemPanel.add(diemcuoikyLabel);
+        // quanLyDiemPanel.add(idDiemLabel);
+        // quanLyDiemPanel.add(hoDiemLabel);
+        // quanLyDiemPanel.add(tenDiemLabel);
+        // quanLyDiemPanel.add(diembaitapLabel);
+        // quanLyDiemPanel.add(diemgiuakyLabel);
+        // quanLyDiemPanel.add(diemcuoikyLabel);
         quanLyDiemPanel.add(namhocLabel);
         quanLyDiemPanel.add(namhocComboBox);
         quanLyDiemPanel.add(monhocLabel);
@@ -284,7 +299,7 @@ public class GiaoVienQuanLy extends JFrame {
         // idHoSoField
         idHoSoField = new JTextField();
         idHoSoField.setHorizontalAlignment(JTextField.CENTER);
-
+        idHoSoField.setEditable(false);
         idHoSoField.setBounds(610, 60, 170, 22);
 
         // hoHoSoField
@@ -320,6 +335,15 @@ public class GiaoVienQuanLy extends JFrame {
 
         tongiaoHoSoField.setBounds(610, 260, 170, 20);
 
+        //themHoSoButton
+        themHoSoButton = new JButton();
+        themHoSoButton.setBackground(new Color(52, 235, 95));
+        themHoSoButton.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
+        themHoSoButton.setForeground(new Color(255, 255, 255));
+        themHoSoButton.setText("Thêm");
+        themHoSoButton.setBounds(550, 360, 70, 30);
+        themHoSoButton.setFocusable(false);
+
         // suaHoSoButton
         suaHoSoButton = new JButton();
         suaHoSoButton.setBackground(new Color(52, 235, 95));
@@ -341,11 +365,14 @@ public class GiaoVienQuanLy extends JFrame {
         xoaHoSoButton.setFocusable(false);
 
         // hoSoTable
-        String[] columnNameHoSo = {};
+        String[] columnNameHoSo = { "ID", "Họ", "Tên", "Ngày sinh", "Địa chỉ", "Tôn giáo", "Email" };
         tableModelHoSo = new DefaultTableModel(columnNameHoSo, 0);
         hoSoTable = new JTable(tableModelHoSo);
-        Object[] rowHoSo = {};
-
+        hoSoTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onHoSoClicked(evt);
+            }
+        });
         // hosoScrollPane
         hosoScrollPane = new JScrollPane();
         hosoScrollPane.setViewportView(hoSoTable);
@@ -410,6 +437,7 @@ public class GiaoVienQuanLy extends JFrame {
         quanLyHoSoPanel.add(diachiHoSoField);
         quanLyHoSoPanel.add(tongiaoHoSoField);
         quanLyHoSoPanel.add(emailHoSoField);
+        // quanLyHoSoPanel.add(themHoSoButton);
         quanLyHoSoPanel.add(suaHoSoButton);
         quanLyHoSoPanel.add(xoaHoSoButton);
         quanLyHoSoPanel.add(hosoScrollPane);
@@ -430,8 +458,8 @@ public class GiaoVienQuanLy extends JFrame {
         tabPanel.addTab("Quản lý điểm", quanLyDiemPanel);
         tabPanel.addTab("Quản lý hồ sơ", quanLyHoSoPanel);
 
-        //helloLabel
-        helloLabel = new JLabel("Xin chào, "+username);
+        // helloLabel
+        helloLabel = new JLabel("Xin chào, " + username);
         helloLabel.setBounds(10, 10, 100, 20);
 
         // titleMainLabel
@@ -472,26 +500,46 @@ public class GiaoVienQuanLy extends JFrame {
 
     }
 
-    public void addSuaDiemListener(ActionListener actionListener){
+    public void refreshDiemTable(ActionListener actionListener) {
+        refreshDiemButton.addActionListener(actionListener);
+    }
+
+    public void refreshHoSoTable(ActionListener actionListener) {
+        // 
+    }
+
+    public void addChangeNamHocListener(ActionListener actionListener) {
+        namhocComboBox.addActionListener(actionListener);
+    }
+
+    public void addChangeMonHocListener(ActionListener actionListener) {
+        monhocComboBox.addActionListener(actionListener);
+    }
+
+    public void addSuaDiemListener(ActionListener actionListener) {
         suaDiemButton.addActionListener(actionListener);
     }
 
-    public void addXoaDiemListener(ActionListener actionListener){
+    public void addXoaDiemListener(ActionListener actionListener) {
         xoaDiemButton.addActionListener(actionListener);
     }
 
-    public void addExportcsvDiemListener(ActionListener actionListener){
+    public void addExportcsvDiemListener(ActionListener actionListener) {
         exportcsvDiemButton.addActionListener(actionListener);
     }
 
-    public void addSuaHoSoListener(ActionListener actionListener){
+    public void addHoSoTableListener(MouseListener mouseListener) {
+        hoSoTable.addMouseListener(mouseListener);
+    }
+
+
+    public void addSuaHoSoListener(ActionListener actionListener) {
         suaHoSoButton.addActionListener(actionListener);
     }
 
-    public void addXoaHoSoListener(ActionListener actionListener){
+    public void addXoaHoSoListener(ActionListener actionListener) {
         xoaHoSoButton.addActionListener(actionListener);
     }
-
 
     public DefaultTableModel getTableModelDiem() {
         return tableModelDiem;
@@ -501,11 +549,86 @@ public class GiaoVienQuanLy extends JFrame {
         return tableModelHoSo;
     }
 
-    public void addLogoutListener(ActionListener actionListener){
+    public DefaultComboBoxModel getNamHocBoxModel() {
+        return namhocModel;
+    }
+
+    public DefaultComboBoxModel getMonHocBoxModel() {
+        return monhocModel;
+    }
+
+    public void addLogoutListener(ActionListener actionListener) {
         dangxuatButton.addActionListener(actionListener);
     }
 
+    
+
+    public JComboBox getNamhocComboBox() {
+        return namhocComboBox;
+    }
+
+    public JComboBox getMonhocComboBox() {
+        return monhocComboBox;
+    }
+
+    
+
+    public JTable getDiemTable() {
+        return diemTable;
+    }
+
+    public JTable getHoSoTable() {
+        return hoSoTable;
+    }
+
+    
+
+    public JTextField getDiachiHoSoField() {
+        return diachiHoSoField;
+    }
+
+    public JTextField getEmailHoSoField() {
+        return emailHoSoField;
+    }
+
+    public JTextField getHoHoSoField() {
+        return hoHoSoField;
+    }
+
+    public JTextField getIdHoSoField() {
+        return idHoSoField;
+    }
+
+    public JTextField getNgaysinhHoSoField() {
+        return ngaysinhHoSoField;
+    }
+
+    public JTextField getTenHoSoField() {
+        return tenHoSoField;
+    }
+
+    public JTextField getTimkiemHoSoField() {
+        return timkiemHoSoField;
+    }
+
+    public JTextField getTongiaoHoSoField() {
+        return tongiaoHoSoField;
+    }
+
+    private void onHoSoClicked(MouseEvent evt) {
+        int row = hoSoTable.getSelectedRow();
+        idHoSoField.setText(hoSoTable.getValueAt(row, 0).toString());
+        hoHoSoField.setText(hoSoTable.getValueAt(row, 1).toString());
+        tenHoSoField.setText(hoSoTable.getValueAt(row, 2).toString());
+        ngaysinhHoSoField.setText(hoSoTable.getValueAt(row, 3).toString());
+        diachiHoSoField.setText(hoSoTable.getValueAt(row, 4).toString());
+        tongiaoHoSoField.setText(hoSoTable.getValueAt(row, 5).toString());
+        emailHoSoField.setText(hoSoTable.getValueAt(row, 6).toString());
+    }
+
+
     public static void main(String[] args) {
-        new GiaoVienQuanLy("Anonymous").setVisible(true);;
+        new GiaoVienQuanLy("Anonymous").setVisible(true);
+        ;
     }
 }
