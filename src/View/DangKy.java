@@ -8,24 +8,24 @@ import java.awt.event.*;
 import java.text.*;
 
 public class DangKy extends JFrame {
+    private com.toedter.calendar.JDateChooser ngaysinhCalendar;
     private JButton dangkyButton;
     private JLabel dangnhapLabel;
-    private JTextField emailField;
     private JLabel emailLabel;
-    private JTextField hoField;
     private JLabel hoLabel;
-    private JLabel tenLabel;
-    private JPasswordField matkhauField;
     private JLabel matkhauLabel;
-    private com.toedter.calendar.JDateChooser ngaysinhCalendar;
     private JLabel ngaysinhLabel;
-    private JPasswordField nhaplaimatkhauField;
     private JLabel nhaplaimatkhauLabel;
+    private JLabel tenLabel;
+    private JLabel titleDangKyLabel;
+    private JPanel mainPanel;
     private JPanel panel1;
     private JPanel panel2;
-    private JPanel mainPanel;
+    private JPasswordField matkhauField;
+    private JPasswordField nhaplaimatkhauField;
+    private JTextField emailField;
+    private JTextField hoField;
     private JTextField tenField;
-    private JLabel titleDangKyLabel;
 
     public DangKy() {
         initComponents();

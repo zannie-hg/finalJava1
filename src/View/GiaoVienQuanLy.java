@@ -489,6 +489,7 @@ public class GiaoVienQuanLy extends JFrame {
         mainPanel.add(helloLabel);
         mainPanel.add(titleMainLabel);
         mainPanel.add(dangxuatButton);
+        
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
         getContentPane().add(mainPanel);

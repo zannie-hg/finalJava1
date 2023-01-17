@@ -4,37 +4,50 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
+import com.toedter.calendar.JDateChooser;
 
 public class SinhVienQuanLy extends JFrame {
-    private JButton dangkyButton;
-    private JButton dangxuatButton;
-    private JLabel matkhauLabel;
-    private JLabel diachiLabel;
-    private JTextField diachiField;
-    private JTable diemTable;
-    private JPasswordField doimatkhauField;
-    private JLabel emailLabel;
-    private JTextField emailField;
-    private JButton exportcsvButton;
-    private JLabel hovatenLabel;
-    private JTextField hovatenField;
-    private JScrollPane diemScrollPane;
-    private JPanel mainPanel;
-    private JPasswordField matkhauField;
-    private JRadioButton namRadioButton;
+    private JDateChooser birthdayCalendar;
+    private JButton addClassBtn;
+    private JButton changePassBtn;
+    private JButton exportCSVBtn;
+    private JButton logoutBtn;
+    private JButton removeClassBtn;
+    private JButton updateProfileBtn;
+    private JComboBox<String> chooseClassComboBox;
     private JComboBox<String> namhocComboBox;
+    private JLabel addressLabel;
+    private JLabel birthdayLabel;
+    private JLabel chooseClassLabel1;
+    private JLabel confirmPassLabel;
+    private JLabel currentPassLabel;
+    private JLabel emaillabel;
+    private JLabel firstNameLabel;
+    private JLabel genderLabel;
+    private JLabel lastNameLabel;
+    private JLabel myClassTitle;
     private JLabel namhocLabel;
-    private JLabel ngaysinhLabel;
-    private JTextField ngaysinhField;
-    private JRadioButton nuRadioButton;
-    private JPanel panel1;
-    private JPanel panel2;
-    private JLabel sodienthoaiLabel;
-    private JTextField sodienthoaiField;
-    private JTextField titleDiemField;
-    private JLabel titleMainLabel;
-    private JLabel doimatkhauLabel;
-    public DefaultTableModel tableModel;
+    private JLabel newPassLabel;
+    private JLabel titleLabel;
+    private JPanel mainPanel;
+    private JPanel markPanel;
+    private JPanel myClassPanel;
+    private JPanel profilePanel;
+    private JPasswordField confirmPassField;
+    private JPasswordField currentPassField;
+    private JPasswordField newPassField;
+    private JRadioButton femaleRadioBtn;
+    private JRadioButton maleRadioBtn;
+    private JScrollPane markScrollPane;
+    private JScrollPane myClassScrollPane;
+    private JTabbedPane mainTabbedPanel;
+    private JTable markTable;
+    private JTable myClassTable;
+    private JTextField addressField;
+    // private JTextField birthdayCalendar;
+    private JTextField emailField;
+    private JTextField firstNameField;
+    private JTextField lastNameField;
 
     public SinhVienQuanLy() {
         initComponents();
@@ -42,247 +55,320 @@ public class SinhVienQuanLy extends JFrame {
 
     public void initComponents() {
 
-        // 1
-        // hovatenLabel
-        hovatenLabel = new JLabel();
-        hovatenLabel.setText("Họ và tên:");
+        /*-----------------------MARK PANEL----------------------------- */
 
-        hovatenLabel.setBounds(20, 50, 80, 16);
+        // exportCSV
+        exportCSVBtn = new JButton();
+        exportCSVBtn.setBackground(new Color(134, 134, 134));
+        exportCSVBtn.setBounds(10, 10, 120, 23);
+        exportCSVBtn.setForeground(new Color(255, 255, 255));
+        exportCSVBtn.setText("Export CSV");
 
-        // ngaysinhLabel
-        ngaysinhLabel = new JLabel();
-        ngaysinhLabel.setText("Ngày sinh:");
-
-        ngaysinhLabel.setBounds(20, 90, 80, 16);
-
-        // diachiLabel
-        diachiLabel = new JLabel();
-        diachiLabel.setText("Địa chỉ:");
-
-        diachiLabel.setBounds(20, 130, 80, 16);
-
-        // emailLabel
-        emailLabel = new JLabel();
-        emailLabel.setText("Email:");
-
-        emailLabel.setBounds(20, 170, 80, 16);
-        // sodienthoaiLabel
-        sodienthoaiLabel = new JLabel();
-        sodienthoaiLabel.setText("Số điện thoại:");
-        sodienthoaiLabel.setBounds(20, 210, 80, 16);
-
-        // matkhauLabel
-        matkhauLabel = new JLabel();
-        matkhauLabel.setText("Mật khẩu:");
-
-        matkhauLabel.setBounds(20, 260, 80, 16);
-
-        // doimatkhauLabel
-        doimatkhauLabel = new JLabel();
-        doimatkhauLabel.setText("Đổi mật khẩu");
-
-        doimatkhauLabel.setBounds(20, 300, 80, 16);
-
-        // hovatenField
-        hovatenField = new JTextField();
-
-        hovatenField.setBounds(110, 40, 160, 30);
-
-        // ngaysinhField
-        ngaysinhField = new JTextField();
-
-        ngaysinhField.setBounds(110, 80, 160, 30);
-
-        // diachiField
-        diachiField = new JTextField();
-
-        diachiField.setBounds(110, 120, 160, 30);
-
-        // emailField
-        emailField = new JTextField();
-
-        emailField.setBounds(110, 160, 160, 30);
-
-        // sodienthoaiField
-        sodienthoaiField = new JTextField();
-
-        sodienthoaiField.setBounds(110, 200, 160, 30);
-
-        // namRadioButton
-        namRadioButton = new JRadioButton();
-        namRadioButton.setText("Nam");
-        namRadioButton.setBounds(90, 230, 60, 21);
-        namRadioButton.setBackground(getForeground());
-        namRadioButton.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onNamRadio(e);
-            }
-        });
-
-        // nuRadioButton
-        nuRadioButton = new JRadioButton();
-        nuRadioButton.setText("Nữ");
-        nuRadioButton.setBounds(170, 230, 60, 21);
-        nuRadioButton.setBackground(getForeground());
-        nuRadioButton.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onNuRadio(e);
-            }
-        });
-        // matkhauField
-        matkhauField = new JPasswordField();
-
-        matkhauField.setBounds(110, 250, 160, 30);
-
-        // doimatkhauField
-        doimatkhauField = new JPasswordField();
-
-        doimatkhauField.setBounds(110, 290, 160, 30);
-
-        // dangkyButton
-        dangkyButton = new JButton();
-        dangkyButton.setBackground(new Color(51, 255, 153));
-        dangkyButton.setFont(new Font("Segoe UI", 1, 12));
-        dangkyButton.setText("Đăng ký");
-
-        dangkyButton.setBounds(100, 343, 80, 30);
-
-        // panel1
-        panel1 = new JPanel();
-
-        panel1.setBounds(10, 60, 290, 410);
-        panel1.setBackground(new Color(255, 204, 204));
-        panel1.setLayout(null);
-        panel1.add(hovatenLabel);
-        panel1.add(ngaysinhLabel);
-        panel1.add(diachiLabel);
-        panel1.add(sodienthoaiLabel);
-        panel1.add(emailLabel);
-        panel1.add(matkhauLabel);
-        panel1.add(doimatkhauLabel);
-        panel1.add(hovatenField);
-        panel1.add(ngaysinhField);
-        panel1.add(diachiField);
-        panel1.add(emailField);
-        panel1.add(sodienthoaiField);
-        panel1.add(namRadioButton);
-        panel1.add(nuRadioButton);
-        panel1.add(matkhauField);
-        panel1.add(doimatkhauField);
-        panel1.add(dangkyButton);
-
-        // 2
-        // titleDiemField
-        titleDiemField = new JTextField();
-        titleDiemField.setEditable(false);
-        titleDiemField.setFont(new Font("Segoe UI", 1, 14));
-        titleDiemField.setHorizontalAlignment(JTextField.CENTER);
-        titleDiemField.setText("Điểm");
-
-        titleDiemField.setBounds(30, 40, 450, 26);
-
-        // namhocLabel
-        namhocLabel = new JLabel();
-        namhocLabel.setText("Năm học:");
-
-        namhocLabel.setBounds(240, 10, 60, 20);
-
-        // namhocComboBox
+        // namhoc combobox
         namhocComboBox = new JComboBox<>();
-        namhocComboBox.setModel(new DefaultComboBoxModel<>(
-                new String[] { "2022-2023", "2023-2024", "2024-2025", "2025-2026" }));
+        namhocComboBox.setBounds(650, 10, 120, 22);
+        namhocComboBox.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        namhocComboBox.setBounds(300, 10, 100, 22);
+        // namhoc label
+        namhocLabel = new JLabel();
+        namhocLabel.setBounds(570, 10, 70, 20);
+        namhocLabel.setLabelFor(namhocComboBox);
+        namhocLabel.setText("Năm học:");
+        namhocLabel.setToolTipText("");
 
-        // exportcsvButton
-        exportcsvButton = new JButton();
-        exportcsvButton.setBackground(new Color(102, 102, 102));
-        exportcsvButton.setFont(new java.awt.Font("Segoe UI", 1, 12));
-        exportcsvButton.setForeground(new Color(255, 255, 255));
-        exportcsvButton.setText("Export csv");
-        exportcsvButton.setBorder(BorderFactory.createTitledBorder(""));
+        // mark table
+        markTable = new JTable();
+        markTable.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][] {
+                        { null, null, null, null, null },
+                        { null, null, null, null, null },
+                        { null, null, null, null, null },
+                        { null, null, null, null, null }
+                },
+                new String[] {
+                        "Môn học", "Điểm bài tập", "Điểm giữa kỳ", "Điểm cuối kỳ", "Tổng"
+                }) {
+            boolean[] canEdit = new boolean[] {
+                    false, false, false, false, false
+            };
 
-        exportcsvButton.setBounds(410, 5, 70, 30);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
 
-        // diemTable
-        String[] columnName = {};
-        tableModel = new DefaultTableModel(columnName, 0);
-        diemTable = new JTable(tableModel);
-        Object[] row = {};
+        // mark scroll pane
+        markScrollPane = new JScrollPane();
+        markScrollPane.setBounds(10, 40, 760, 360);
+        markScrollPane.setViewportView(markTable);
 
-        // diemScrollPane
-        diemScrollPane = new JScrollPane();
-        diemScrollPane.setViewportView(diemTable);
+        // mark panel
+        markPanel = new JPanel();
+        markPanel.add(exportCSVBtn);
+        markPanel.add(markScrollPane);
+        markPanel.add(namhocComboBox);
+        markPanel.add(namhocLabel);
+        markPanel.getAccessibleContext().setAccessibleDescription("");
+        markPanel.getAccessibleContext().setAccessibleName("");
+        markPanel.setBackground(new Color(255, 217, 221));
+        markPanel.setLayout(null);
 
-        diemScrollPane.setBounds(30, 60, 450, 330);
+        /*-----------------------MY CLASS PANEL----------------------------- */
 
-        // panel2
+        // add class button
+        addClassBtn = new JButton();
+        addClassBtn.setBackground(new Color(120, 208, 255));
+        addClassBtn.setBounds(610, 290, 150, 40);
+        addClassBtn.setText("Đăng ký");
 
-        panel2 = new JPanel();
-        panel2.setBackground(new java.awt.Color(204, 204, 204));
-        panel2.setLayout(null);
-        panel2.add(titleDiemField);
-        panel2.add(namhocLabel);
-        panel2.add(namhocComboBox);
-        panel2.add(exportcsvButton);
-        panel2.add(diemScrollPane);
-        panel2.setBounds(310, 60, 500, 410);
+        // remove class button
+        removeClassBtn = new JButton();
+        removeClassBtn.setBackground(new Color(255, 127, 120));
+        removeClassBtn.setBounds(610, 340, 150, 40);
+        removeClassBtn.setText("Nghỉ học");
 
-        // titleMainLabel
-        titleMainLabel = new JLabel();
-        titleMainLabel.setFont(new Font("Segoe UI", 1, 24));
-        titleMainLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        titleMainLabel.setText("QUẢN LÝ HỒ SƠ");
-        titleMainLabel.setBounds(240, 20, 350, 32);
+        // choose class combobox
+        chooseClassComboBox = new JComboBox<>();
+        chooseClassComboBox.setBounds(610, 230, 150, 40);
+        chooseClassComboBox.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        // dangxuatButton
-        dangxuatButton = new JButton();
-        dangxuatButton.setBackground(new Color(255, 102, 102));
-        dangxuatButton.setFont(new Font("Segoe UI", 3, 12));
-        dangxuatButton.setForeground(new Color(255, 255, 255));
-        dangxuatButton.setText("Đăng xuất");
-        dangxuatButton.setBorder(BorderFactory.createTitledBorder(""));
-        dangxuatButton.setBounds(715, 30, 90, 30);
+        // choose class label
+        chooseClassLabel1 = new JLabel();
+        chooseClassLabel1.setBounds(610, 210, 80, 16);
+        chooseClassLabel1.setText("Chọn lớp :");
 
-        // mainPanel
+        // my class title
+        myClassTitle = new JLabel();
+        myClassTitle.setBounds(210, 10, 180, 30);
+        myClassTitle.setFont(new Font("Segoe UI", 1, 18)); // NOI18N
+        myClassTitle.setText("Các lớp đã đăng ký");
+
+        // my class table
+        myClassTable = new JTable();
+
+        myClassTable.setModel(new DefaultTableModel(
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
+
+        // my class scroll pane
+        myClassScrollPane = new JScrollPane();
+        myClassScrollPane.setBounds(20, 50, 560, 330);
+        myClassScrollPane.setViewportView(myClassTable);
+
+        // my class panel
+        myClassPanel = new JPanel();
+        myClassPanel.add(addClassBtn);
+        myClassPanel.add(chooseClassComboBox);
+        myClassPanel.add(chooseClassLabel1);
+        myClassPanel.add(myClassScrollPane);
+        myClassPanel.add(myClassTitle);
+        myClassPanel.add(removeClassBtn);
+        myClassPanel.setLayout(null);
+
+        /*-----------------------PROFILE PANEL----------------------------- */
+
+        // address field label
+        addressField = new JTextField();
+        addressField.setBounds(20, 170, 340, 40);
+        addressLabel = new JLabel();
+        addressLabel.setBounds(20, 150, 130, 20);
+        addressLabel.setText("Địa chỉ");
+
+        // birthday field label
+        birthdayCalendar = new JDateChooser();
+        birthdayCalendar.setBounds(20, 300, 340, 40);
+        birthdayCalendar.setDateFormatString("yyyy-MM-dd");
+        birthdayLabel = new JLabel();
+        birthdayLabel.setBounds(20, 280, 130, 20);
+        birthdayLabel.setText("Ngày sinh:");
+        // email field label
+        emailField = new JTextField();
+        emailField.setBounds(20, 100, 340, 40);
+        emaillabel = new JLabel();
+        emaillabel.setBounds(20, 80, 130, 20);
+        emaillabel.setText("Email");
+
+        // lastname field label
+        lastNameField = new JTextField();
+        lastNameField.setBounds(20, 30, 160, 40);
+        lastNameLabel = new JLabel();
+        lastNameLabel.setBounds(20, 10, 19, 20);
+        lastNameLabel.setText("Họ:");
+
+        // firstname field label
+        firstNameField = new JTextField();
+        firstNameField.setBounds(200, 30, 160, 40);
+        firstNameLabel = new JLabel();
+        firstNameLabel.setBounds(200, 10, 60, 20);
+        firstNameLabel.setText("Tên:");
+
+        // gender label
+        genderLabel = new JLabel();
+        genderLabel.setBounds(20, 220, 130, 20);
+        genderLabel.setText("Giới tính");
+
+        // gender radio button
+        femaleRadioBtn = new JRadioButton();
+        femaleRadioBtn.setBounds(150, 250, 98, 21);
+        femaleRadioBtn.setText("Nữ");
+
+        maleRadioBtn = new JRadioButton();
+        maleRadioBtn.setBounds(40, 250, 90, 21);
+        maleRadioBtn.setText("Nam");
+
+        // current password field label
+        currentPassField = new JPasswordField();
+        currentPassField.setBounds(460, 30, 290, 40);
+        currentPassLabel = new JLabel();
+        currentPassLabel.setBounds(460, 10, 190, 20);
+        currentPassLabel.setText("Mật khẩu hiện tại:");
+
+        // new password field label
+        newPassField = new JPasswordField();
+        newPassField.setBounds(460, 100, 290, 40);
+        newPassLabel = new JLabel();
+        newPassLabel.setBounds(460, 80, 190, 20);
+        newPassLabel.setText("Mật khẩu mới");
+
+        // confirm password field label
+        confirmPassField = new JPasswordField();
+        confirmPassField.setBounds(460, 170, 290, 40);
+        confirmPassLabel = new JLabel();
+        confirmPassLabel.setBounds(460, 150, 190, 20);
+        confirmPassLabel.setText("Nhập lại mật khẩu:");
+
+        // update profile button
+        updateProfileBtn = new JButton();
+        updateProfileBtn.setBackground(new Color(52, 235, 95));
+        updateProfileBtn.setBounds(210, 360, 150, 30);
+        updateProfileBtn.setText("Cập nhật tài khoản");
+
+        // change password button
+        changePassBtn = new JButton();
+        changePassBtn.setBackground(new Color(66, 135, 245));
+        changePassBtn.setBounds(620, 220, 130, 23);
+        changePassBtn.setText("Đổi mật khẩu");
+
+        // profile panel
+        profilePanel = new JPanel();
+        profilePanel.add(addressField);
+        profilePanel.add(addressLabel);
+        profilePanel.add(birthdayCalendar);
+        profilePanel.add(birthdayLabel);
+        profilePanel.add(changePassBtn);
+        profilePanel.add(confirmPassField);
+        profilePanel.add(confirmPassLabel);
+        profilePanel.add(currentPassField);
+        profilePanel.add(currentPassLabel);
+        profilePanel.add(emailField);
+        profilePanel.add(emaillabel);
+        profilePanel.add(femaleRadioBtn);
+        profilePanel.add(firstNameField);
+        profilePanel.add(firstNameLabel);
+        profilePanel.add(genderLabel);
+        profilePanel.add(lastNameField);
+        profilePanel.add(lastNameLabel);
+        profilePanel.add(maleRadioBtn);
+        profilePanel.add(newPassField);
+        profilePanel.add(newPassLabel);
+        profilePanel.add(updateProfileBtn);
+        profilePanel.setBackground(new Color(230, 230, 230));
+        profilePanel.setLayout(null);
+
+        // title label
+        titleLabel = new JLabel();
+        titleLabel.setBounds(270, 10, 300, 30);
+        titleLabel.setFont(new Font("Segoe UI", 1, 24)); // NOI18N
+        titleLabel.setText("Trung tâm đào tạo ABC");
+
+        // logout button
+        logoutBtn = new JButton();
+        logoutBtn.setBackground(new Color(255, 102, 102));
+        logoutBtn.setBounds(690, 20, 100, 30);
+        logoutBtn.setText("Đăng xuất");
+
+        // main tabbed panel
+        mainTabbedPanel = new JTabbedPane();
+        mainTabbedPanel.addTab("Kết quả học tập", markPanel);
+        mainTabbedPanel.addTab("Lớp học của tôi", myClassPanel);
+        mainTabbedPanel.addTab("Thay đổi lý lịch", profilePanel);
+        mainTabbedPanel.setBounds(10, 50, 780, 440);
+
+        // main panel
         mainPanel = new JPanel();
+        mainPanel.add(logoutBtn);
+        mainPanel.add(mainTabbedPanel);
+        mainPanel.add(titleLabel);
+        mainPanel.getAccessibleContext().setAccessibleName("");
+        mainPanel.setBounds(0, 0, 820, 540);
         mainPanel.setLayout(null);
-        mainPanel.add(titleMainLabel);
-        mainPanel.add(dangxuatButton);
 
-        mainPanel.add(panel1);
-        mainPanel.add(panel2);
-        mainPanel.setBounds(0, 0, 840, 480);
         getContentPane().add(mainPanel);
-
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
-        setSize(840,520);
-        setPreferredSize(getSize());
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        setSize(820, 540);
+        setPreferredSize(getSize());
         setLocationRelativeTo(null);
         pack();
+
     }
 
-    public void addLogoutListener(ActionListener listener){
-        dangxuatButton.addActionListener(listener);
-    }
+    // public void addLogoutListener(ActionListener listener){
+    // dangxuatButton.addActionListener(listener);
+    // }
 
-    public void onNamRadio(ActionEvent e){
-        if (namRadioButton.isSelected() && nuRadioButton.isSelected()){
-            nuRadioButton.setSelected(false);
-        }
-    }
+    // public void onNamRadio(ActionEvent e){
+    // if (namRadioButton.isSelected() && nuRadioButton.isSelected()){
+    // nuRadioButton.setSelected(false);
+    // }
+    // }
 
-    public void onNuRadio(ActionEvent e){
-        if (namRadioButton.isSelected() && nuRadioButton.isSelected()){
-            namRadioButton.setSelected(false);
-        }
-    }
+    // public void onNuRadio(ActionEvent e){
+    // if (namRadioButton.isSelected() && nuRadioButton.isSelected()){
+    // namRadioButton.setSelected(false);
+    // }
+    // }
+    // markTable.setModel(new javax.swing.table.DefaultTableModel(
+    // new Object [][] {
+    // {null, null, null, null, null},
+    // {null, null, null, null, null},
+    // {null, null, null, null, null},
+    // {null, null, null, null, null}
+    // },
+    // new String [] {
+    // "Môn học", "Điểm bài tập", "Điểm giữa kỳ", "Điểm cuối kỳ", "Tổng"
+    // }
+    // ) {
+    // boolean[] canEdit = new boolean [] {
+    // false, false, false, false, false
+    // };
 
+    // public boolean isCellEditable(int rowIndex, int columnIndex) {
+    // return canEdit [columnIndex];
+    // }
+    // });
+
+    // myClassTable.setModel(new javax.swing.table.DefaultTableModel(
+    // new Object [][] {
+    // {null, null, null, null},
+    // {null, null, null, null},
+    // {null, null, null, null},
+    // {null, null, null, null}
+    // },
+    // new String [] {
+    // "Title 1", "Title 2", "Title 3", "Title 4"
+    // }
+    // ));
     public static void main(String[] args) {
-        new SinhVienQuanLy().setVisible(true);;
+        new SinhVienQuanLy().setVisible(true);
+        ;
     }
 }
