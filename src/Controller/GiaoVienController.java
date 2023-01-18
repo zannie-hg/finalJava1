@@ -139,9 +139,9 @@ public class GiaoVienController {
         String firstname = giaoVienQuanLy.getTenHoSoField().getText();
         String birthday = giaoVienQuanLy.getNgaysinhHoSoField().getText();
         String address = giaoVienQuanLy.getDiachiHoSoField().getText();
-        String religion = giaoVienQuanLy.getTongiaoHoSoField().getText();
+        String gender = giaoVienQuanLy.getGenderField() + "";
         String email = giaoVienQuanLy.getEmailHoSoField().getText();
-        userManager.updateUser(id, lastname, firstname, birthday, address, religion, email);
+        userManager.updateUser(id, lastname, firstname, birthday, address, gender, email);
         reloadTableHoSo();
     }
 

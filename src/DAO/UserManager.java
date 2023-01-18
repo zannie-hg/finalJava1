@@ -20,7 +20,7 @@ public class UserManager {
         try {
             model.setRowCount(0);
             conn = connector.getConnection();
-            String query = "Select ID, lastname, firstname, birthday, address, religion, email from user;";
+            String query = "Select ID, lastname, firstname, birthday, address, sex, email from user;";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(query);
             while(rs.next()){
@@ -29,9 +29,9 @@ public class UserManager {
                 String firstname = rs.getString("firstname");
                 String birthday = rs.getString("birthday");
                 String address = rs.getString("address");
-                String religion = rs.getString("religion");
+                String gender = rs.getString("sex").equals("1") ? "Nam" : "Nữ";
                 String email = rs.getString("email");
-                model.addRow(new Object[]{id, lastname, firstname, birthday, address, religion, email});
+                model.addRow(new Object[]{id, lastname, firstname, birthday, address, gender, email});
             }
 
         } catch (Exception e) {
@@ -39,10 +39,10 @@ public class UserManager {
         }
     }
     
-    public void updateUser(String id, String lastname, String firstname, String birthday, String address, String religion, String email){
+    public void updateUser(String id, String lastname, String firstname, String birthday, String address, String gender, String email){
         try {
             conn = connector.getConnection();
-            String query = String.format("update user set lastname = '%s', firstname = '%s', birthday = '%s', address = '%s', religion = '%s', email = '%s' where ID = '%s';", lastname, firstname, birthday, address, religion, email, id);
+            String query = String.format("update user set lastname = '%s', firstname = '%s', birthday = '%s', address = '%s', sex = '%s', email = '%s' where ID = '%s';", lastname, firstname, birthday, address, gender, email, id);
             Statement st = conn.createStatement();
             st.executeUpdate(query);
             conn.close();
