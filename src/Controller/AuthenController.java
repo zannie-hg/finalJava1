@@ -120,13 +120,13 @@ public class AuthenController {
             if (rs.next()) {
                 JOptionPane.showMessageDialog(null, "Tài khoản đã tồn tại");
             } else {
-                ResultSet rs1 = st.executeQuery("SELECT ID FROM user ORDER BY ID DESC LIMIT 1");
+                ResultSet rs1 = st.executeQuery("SELECT ID FROM user ORDER BY create_at DESC LIMIT 1");
                 rs1.next();
                 String ID = rs1.getString("ID");
                 int id = Integer.parseInt(ID.substring(2));
                 id++;
                 ID = "SV" + String.format("%03d", id);
-                String query = String.format("INSERT INTO `user` (`ID`, `firstname`, `lastname`, `email`, `role_id`, `password`, `religion`, `birthday`, `address`, `create_at`, `update_at`) VALUES ('%s', '%s', '%s', '%s', 'r2', '%s', '', '%s', '', current_timestamp(), '0000-00-00 00:00:00.000000');", ID, firstname, lastname, email, password, birthday);
+                String query = String.format("INSERT INTO `user` (`ID`, `firstname`, `lastname`, `email`, `role_id`, `password`, `sex`, `birthday`, `address`, `create_at`, `update_at`) VALUES ('%s', '%s', '%s', '%s', 'r2', '%s', null, '%s', '', current_timestamp(), '0000-00-00 00:00:00.000000');", ID, firstname, lastname, email, password, birthday);
                 st.executeUpdate(query);
                 JOptionPane.showMessageDialog(null, "Đăng ký thành công");
                 dangKyView.setVisible(false);

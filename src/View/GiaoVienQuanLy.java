@@ -185,18 +185,18 @@ public class GiaoVienQuanLy extends JFrame {
         monhocComboBox.setBounds(260, 10, 100, 22);
 
         // diemTable
-        String[] columnNameDiem = { "Mã lớp", "Họ", "Tên", "Điểm bài tập", "Giữa kỳ", "Cuối kỳ", "Môn học", "Năm học"};
-        tableModelDiem = new DefaultTableModel(columnNameDiem, 0){
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true, true, true, false, true
+        String[] columnNameDiem = { "Mã lớp", "Họ", "Tên", "Điểm bài tập", "Giữa kỳ", "Cuối kỳ", "Môn học", "Năm học" };
+        tableModelDiem = new DefaultTableModel(columnNameDiem, 0) {
+            boolean[] canEdit = new boolean[] {
+                    false, false, false, true, true, true, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         };
         diemTable = new JTable(tableModelDiem);
-        //set editable column
+        // set editable column
         diemTable.getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(idDiemField));
 
         // diemScrollPane
@@ -344,19 +344,19 @@ public class GiaoVienQuanLy extends JFrame {
         maleRadioBtn = new JRadioButton();
         maleRadioBtn.setBounds(610, 260, 90, 21);
         maleRadioBtn.setText("Nam");
-        maleRadioBtn.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){
+        maleRadioBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 maleRadioBtnActionPerformed(evt);
             }
         });
-        
-        // tongiaoHoSoField
+
+        // gioitinhHoSoField
         genderField = new JTextField();
         genderField.setHorizontalAlignment(JTextField.CENTER);
 
         genderField.setBounds(610, 260, 170, 20);
 
-        //themHoSoButton
+        // themHoSoButton
         themHoSoButton = new JButton();
         themHoSoButton.setBackground(new Color(52, 235, 95));
         themHoSoButton.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
@@ -435,7 +435,7 @@ public class GiaoVienQuanLy extends JFrame {
         diachiHoSoLabel.setText("Địa chỉ:");
         diachiHoSoLabel.setBounds(610, 200, 50, 16);
 
-        // tongiaoHoSoLabel
+        // gioitinhHoSoLabel
         genderHoSoLabel = new JLabel();
         genderHoSoLabel.setText("Giới tính:");
         genderHoSoLabel.setBounds(610, 240, 80, 16);
@@ -529,7 +529,7 @@ public class GiaoVienQuanLy extends JFrame {
     }
 
     public void refreshHoSoTable(ActionListener actionListener) {
-        // 
+        //
     }
 
     public void addChangeNamHocListener(ActionListener actionListener) {
@@ -555,7 +555,6 @@ public class GiaoVienQuanLy extends JFrame {
     public void addHoSoTableListener(MouseListener mouseListener) {
         hoSoTable.addMouseListener(mouseListener);
     }
-
 
     public void addSuaHoSoListener(ActionListener actionListener) {
         suaHoSoButton.addActionListener(actionListener);
@@ -585,8 +584,6 @@ public class GiaoVienQuanLy extends JFrame {
         dangxuatButton.addActionListener(actionListener);
     }
 
-    
-
     public JComboBox getNamhocComboBox() {
         return namhocComboBox;
     }
@@ -595,8 +592,6 @@ public class GiaoVienQuanLy extends JFrame {
         return monhocComboBox;
     }
 
-    
-
     public JTable getDiemTable() {
         return diemTable;
     }
@@ -604,8 +599,6 @@ public class GiaoVienQuanLy extends JFrame {
     public JTable getHoSoTable() {
         return hoSoTable;
     }
-
-    
 
     public JTextField getDiachiHoSoField() {
         return diachiHoSoField;
@@ -638,16 +631,21 @@ public class GiaoVienQuanLy extends JFrame {
     public int getGenderField() {
         if (femaleRadioBtn.isSelected()) {
             return 0;
-        } else {
+        } else if (maleRadioBtn.isSelected()) {
             return 1;
+        } else {
+            return -1;
         }
     }
 
-    private void setGenderBtn(String gender){
-        if (gender.equals("Nam")){
+    private void setGenderBtn(String gender) {
+        if (gender.equals("NULL")) {
+            maleRadioBtn.setSelected(false);
+            femaleRadioBtn.setSelected(false);
+        } else if (gender.equals("Nam")) {
             maleRadioBtn.setSelected(true);
             femaleRadioBtn.setSelected(false);
-        }else{
+        } else {
             maleRadioBtn.setSelected(false);
             femaleRadioBtn.setSelected(true);
         }
@@ -674,7 +672,10 @@ public class GiaoVienQuanLy extends JFrame {
         diachiHoSoField.setText(hoSoTable.getValueAt(row, 4).toString());
         genderField.setText(hoSoTable.getValueAt(row, 5).toString());
         emailHoSoField.setText(hoSoTable.getValueAt(row, 6).toString());
-        if (genderField.getText().equals("Nam")) {
+        if (genderField.getText().equals("NULL")) {
+            maleRadioBtn.setSelected(false);
+            femaleRadioBtn.setSelected(false);
+        } else if (genderField.getText().equals("Nam")) {
             maleRadioBtn.setSelected(true);
             femaleRadioBtn.setSelected(false);
         } else {
@@ -682,7 +683,6 @@ public class GiaoVienQuanLy extends JFrame {
             maleRadioBtn.setSelected(false);
         }
     }
-
 
     public static void main(String[] args) {
         new GiaoVienQuanLy("Anonymous").setVisible(true);
