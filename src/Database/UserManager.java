@@ -1,4 +1,4 @@
-package DAO;
+package Database;
 
 import java.sql.*;
 
@@ -10,14 +10,13 @@ import Controller.Connector;
 public class UserManager {
     Connector connector;
     Connection conn;
-    DefaultTableModel model;
 
-    public UserManager(DefaultTableModel model) {
-        this.model = model;
+    public UserManager() {
         this.connector = new Connector();
     }
 
-    public void getAllUser() {
+    /* ------------------------GIAO VIEN QUERY----------------------------- */
+    public void getAllUser(DefaultTableModel model) {
         try {
             model.setRowCount(0);
             conn = connector.getConnection();
@@ -69,5 +68,7 @@ public class UserManager {
             JOptionPane.showMessageDialog(null, "Error" + e);
         }
     }
+
+    /* ------------------------SINH VIEN QUERY----------------------------- */
 
 }

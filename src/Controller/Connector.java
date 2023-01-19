@@ -11,7 +11,6 @@ public class Connector {
         String pwd = "";
         try {
             conn = DriverManager.getConnection(url, user, pwd);
-            System.out.println("Connected");
             
         } catch (Exception e) {
             System.out.println("Error" + e);

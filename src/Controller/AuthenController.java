@@ -19,6 +19,7 @@ public class AuthenController {
 
     String username;
     String role;
+    String ID;
 
     public AuthenController() {
         connector = new Connector();
@@ -64,18 +65,18 @@ public class AuthenController {
 
             // check email and password in table user
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("Select email, password, role_id, firstname, lastname from user where email = '" + email + "'");
+            ResultSet rs = st.executeQuery("Select ID, email, password, role_id, firstname, lastname from user where email = '" + email + "'");
             if (rs.next()) {
                 if (rs.getString("password").equals(password)) {
-                    System.out.println("Login success");
+                    username = rs.getString("firstname");
+                    ID = rs.getString("ID");
                     if (rs.getString("role_id").equals("r1")) {
-                        username = rs.getString("firstname");
                         role = "Giáo viên";
                         new GiaoVienController(this, username);
                         dangNhapView.setVisible(false);
                     } else {
                         role = "Sinh viên";
-                        new SinhVienController(this);
+                        new SinhVienController(this, username, ID);
                         dangNhapView.setVisible(false);
                     }
                 } else {
@@ -112,7 +113,6 @@ public class AuthenController {
                 return;
             }
 
-            System.out.println(firstname + lastname + email + birthday + password + repassword);
 
             // check email and password in table user
             Statement st = conn.createStatement();

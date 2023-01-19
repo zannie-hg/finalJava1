@@ -16,3 +16,9 @@ where mark.user_id = 1;
 
 -- search user name
 SELECT * FROM `user` WHERE user.firstname like '%h%' or user.lastname like '%h%';
+
+-- Cac mon hoc chua dang ky
+SELECT name FROM `subject` WHERE name not IN (
+	SELECT subject.name from subject inner join mark on subject.ID = mark.subject_id
+    where mark.user_id = 'SV007' and mark.year = '2023'
+);

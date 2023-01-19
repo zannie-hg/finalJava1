@@ -5,9 +5,9 @@ import java.awt.event.*;
 
 import javax.swing.table.DefaultTableModel;
 
-import DAO.MarkManager;
-import DAO.SubjectManager;
-import DAO.UserManager;
+import Database.MarkManager;
+import Database.SubjectManager;
+import Database.UserManager;
 
 public class GiaoVienController {
     GiaoVienQuanLy giaoVienQuanLy;
@@ -21,14 +21,14 @@ public class GiaoVienController {
         giaoVienQuanLy = new GiaoVienQuanLy(username);
         initAction();
         giaoVienQuanLy.setVisible(true);
-        userManager = new UserManager(giaoVienQuanLy.getTableModelHoSo());
-        markManager = new MarkManager(giaoVienQuanLy.getTableModelDiem());
-        subjectManager = new SubjectManager(giaoVienQuanLy.getNamHocBoxModel(), giaoVienQuanLy.getMonHocBoxModel());
+        userManager = new UserManager();
+        markManager = new MarkManager();
+        subjectManager = new SubjectManager();
 
-        subjectManager.getAllSubject();
-        subjectManager.getAllYear();
-        userManager.getAllUser();
-        markManager.getAllMark("2023", "Ngữ Văn");
+        subjectManager.getAllSubject(giaoVienQuanLy.getMonHocBoxModel());
+        subjectManager.getAllYear(giaoVienQuanLy.getNamHocBoxModel());
+        userManager.getAllUser(giaoVienQuanLy.getTableModelHoSo());
+        markManager.getAllMark(giaoVienQuanLy.getTableModelDiem(),"2023", "Ngữ Văn");
     }
 
     public void initAction() {
@@ -110,7 +110,6 @@ public class GiaoVienController {
             String finalmark = String.valueOf(homeTable.getValueAt(editRows[i], 5));
 
             markManager.updateMark(id, homework, midtern, finalmark);
-            System.out.println("Sua diem thanh cong" + id);
         }
         reloadTableDiem();
     }
@@ -120,7 +119,6 @@ public class GiaoVienController {
         DefaultTableModel homeTable = giaoVienQuanLy.getTableModelDiem();
         for (int i = deleteRows.length - 1; i >= 0; i--) {
             markManager.deleteMark(homeTable.getValueAt(deleteRows[i], 0).toString());
-            System.out.println("Xoa diem thanh cong" + homeTable.getValueAt(deleteRows[i], 0).toString());
         }
         reloadTableDiem();
     };
@@ -130,7 +128,7 @@ public class GiaoVienController {
     }
 
     public void reloadTableDiem(){
-        markManager.getAllMark(String.valueOf(giaoVienQuanLy.getNamhocComboBox().getSelectedItem()),String.valueOf(giaoVienQuanLy.getMonhocComboBox().getSelectedItem()));
+        markManager.getAllMark(giaoVienQuanLy.getTableModelDiem(),String.valueOf(giaoVienQuanLy.getNamhocComboBox().getSelectedItem()),String.valueOf(giaoVienQuanLy.getMonhocComboBox().getSelectedItem()));
     }
 
     public void onUpdateHoSo(ActionEvent e){
@@ -153,6 +151,6 @@ public class GiaoVienController {
     }
 
     public void reloadTableHoSo(){
-        userManager.getAllUser();
+        userManager.getAllUser(giaoVienQuanLy.getTableModelHoSo());
     }
 }

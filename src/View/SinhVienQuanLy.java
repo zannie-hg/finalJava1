@@ -7,6 +7,10 @@ import java.awt.event.*;
 import com.toedter.calendar.JDateChooser;
 
 public class SinhVienQuanLy extends JFrame {
+    private DefaultTableModel myClassTableModel;
+    private DefaultTableModel markTableModel;
+    private DefaultComboBoxModel<String> namHoComboBoxModel;
+    private DefaultComboBoxModel<String> monhocComboBoxModel;
     private JDateChooser birthdayCalendar;
     private JButton addClassBtn;
     private JButton changePassBtn;
@@ -30,7 +34,6 @@ public class SinhVienQuanLy extends JFrame {
     private JLabel newPassLabel;
     private JLabel titleLabel;
     private JPanel mainPanel;
-    private JPanel markPanel;
     private JPanel myClassPanel;
     private JPanel profilePanel;
     private JPasswordField confirmPassField;
@@ -38,13 +41,10 @@ public class SinhVienQuanLy extends JFrame {
     private JPasswordField newPassField;
     private JRadioButton femaleRadioBtn;
     private JRadioButton maleRadioBtn;
-    private JScrollPane markScrollPane;
     private JScrollPane myClassScrollPane;
     private JTabbedPane mainTabbedPanel;
     private JTable markTable;
-    private JTable myClassTable;
     private JTextField addressField;
-    // private JTextField birthdayCalendar;
     private JTextField emailField;
     private JTextField firstNameField;
     private JTextField lastNameField;
@@ -67,7 +67,8 @@ public class SinhVienQuanLy extends JFrame {
         // namhoc combobox
         namhocComboBox = new JComboBox<>();
         namhocComboBox.setBounds(650, 10, 120, 22);
-        namhocComboBox.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        namHoComboBoxModel = new DefaultComboBoxModel<>();
+        namhocComboBox.setModel(namHoComboBoxModel);
 
         // namhoc label
         namhocLabel = new JLabel();
@@ -78,42 +79,17 @@ public class SinhVienQuanLy extends JFrame {
 
         // mark table
         markTable = new JTable();
-        markTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {
-                        { null, null, null, null, null },
-                        { null, null, null, null, null },
-                        { null, null, null, null, null },
-                        { null, null, null, null, null }
-                },
-                new String[] {
-                        "Môn học", "Điểm bài tập", "Điểm giữa kỳ", "Điểm cuối kỳ", "Tổng"
-                }) {
+        String[] markColums = {"ID","Môn học", "Điểm bài tập", "Điểm giữa kỳ", "Điểm cuối kỳ", "Tổng"};
+        markTableModel = new DefaultTableModel(markColums, 0){
             boolean[] canEdit = new boolean[] {
-                    false, false, false, false, false
+                false, false, false, false, false, false
             };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
+            public boolean isCellEditable(int rowIndex, int columIndex){
+                return canEdit[columIndex];
             }
-        });
-
-        // mark scroll pane
-        markScrollPane = new JScrollPane();
-        markScrollPane.setBounds(10, 40, 760, 360);
-        markScrollPane.setViewportView(markTable);
-
-        // mark panel
-        markPanel = new JPanel();
-        markPanel.add(exportCSVBtn);
-        markPanel.add(markScrollPane);
-        markPanel.add(namhocComboBox);
-        markPanel.add(namhocLabel);
-        markPanel.getAccessibleContext().setAccessibleDescription("");
-        markPanel.getAccessibleContext().setAccessibleName("");
-        markPanel.setBackground(new Color(255, 217, 221));
-        markPanel.setLayout(null);
-
-        /*-----------------------MY CLASS PANEL----------------------------- */
+        };
+        markTable.setModel(markTableModel);
 
         // add class button
         addClassBtn = new JButton();
@@ -128,9 +104,10 @@ public class SinhVienQuanLy extends JFrame {
         removeClassBtn.setText("Nghỉ học");
 
         // choose class combobox
+        monhocComboBoxModel = new DefaultComboBoxModel<>();
         chooseClassComboBox = new JComboBox<>();
         chooseClassComboBox.setBounds(610, 230, 150, 40);
-        chooseClassComboBox.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        chooseClassComboBox.setModel(monhocComboBoxModel);
 
         // choose class label
         chooseClassLabel1 = new JLabel();
@@ -143,24 +120,11 @@ public class SinhVienQuanLy extends JFrame {
         myClassTitle.setFont(new Font("Segoe UI", 1, 18)); // NOI18N
         myClassTitle.setText("Các lớp đã đăng ký");
 
-        // my class table
-        myClassTable = new JTable();
-
-        myClassTable.setModel(new DefaultTableModel(
-                new Object[][] {
-                        { null, null, null, null },
-                        { null, null, null, null },
-                        { null, null, null, null },
-                        { null, null, null, null }
-                },
-                new String[] {
-                        "Title 1", "Title 2", "Title 3", "Title 4"
-                }));
 
         // my class scroll pane
         myClassScrollPane = new JScrollPane();
         myClassScrollPane.setBounds(20, 50, 560, 330);
-        myClassScrollPane.setViewportView(myClassTable);
+        myClassScrollPane.setViewportView(markTable);
 
         // my class panel
         myClassPanel = new JPanel();
@@ -170,6 +134,8 @@ public class SinhVienQuanLy extends JFrame {
         myClassPanel.add(myClassScrollPane);
         myClassPanel.add(myClassTitle);
         myClassPanel.add(removeClassBtn);
+        myClassPanel.add(namhocComboBox);
+        myClassPanel.add(namhocLabel);
         myClassPanel.setLayout(null);
 
         /*-----------------------PROFILE PANEL----------------------------- */
@@ -296,8 +262,8 @@ public class SinhVienQuanLy extends JFrame {
 
         // main tabbed panel
         mainTabbedPanel = new JTabbedPane();
-        mainTabbedPanel.addTab("Kết quả học tập", markPanel);
-        mainTabbedPanel.addTab("Lớp học của tôi", myClassPanel);
+        mainTabbedPanel.addTab("Kết quả học tập", myClassPanel);
+        // mainTabbedPanel.addTab("Lớp học của tôi", myClassPanel);
         mainTabbedPanel.addTab("Thay đổi lý lịch", profilePanel);
         mainTabbedPanel.setBounds(10, 50, 780, 440);
 
@@ -320,53 +286,134 @@ public class SinhVienQuanLy extends JFrame {
         pack();
 
     }
+    // add Listener
+    public void addLogoutListener(ActionListener listener){
+        logoutBtn.addActionListener(listener);
+    }
 
-    // public void addLogoutListener(ActionListener listener){
-    // dangxuatButton.addActionListener(listener);
-    // }
+    public void addNamHocComboBoxListener(ActionListener listener){
+        namhocComboBox.addActionListener(listener);
+    }
 
-    // public void onNamRadio(ActionEvent e){
-    // if (namRadioButton.isSelected() && nuRadioButton.isSelected()){
-    // nuRadioButton.setSelected(false);
-    // }
-    // }
+    public void addAddClassListener(ActionListener listener){
+        addClassBtn.addActionListener(listener);
+    }
 
-    // public void onNuRadio(ActionEvent e){
-    // if (namRadioButton.isSelected() && nuRadioButton.isSelected()){
-    // namRadioButton.setSelected(false);
-    // }
-    // }
-    // markTable.setModel(new javax.swing.table.DefaultTableModel(
-    // new Object [][] {
-    // {null, null, null, null, null},
-    // {null, null, null, null, null},
-    // {null, null, null, null, null},
-    // {null, null, null, null, null}
-    // },
-    // new String [] {
-    // "Môn học", "Điểm bài tập", "Điểm giữa kỳ", "Điểm cuối kỳ", "Tổng"
-    // }
-    // ) {
-    // boolean[] canEdit = new boolean [] {
-    // false, false, false, false, false
-    // };
+    public void addRemoveClassListener(ActionListener listener){
+        removeClassBtn.addActionListener(listener);
+    }
+    
+    
+    // Setter getter
 
-    // public boolean isCellEditable(int rowIndex, int columnIndex) {
-    // return canEdit [columnIndex];
-    // }
-    // });
+    
 
-    // myClassTable.setModel(new javax.swing.table.DefaultTableModel(
-    // new Object [][] {
-    // {null, null, null, null},
-    // {null, null, null, null},
-    // {null, null, null, null},
-    // {null, null, null, null}
-    // },
-    // new String [] {
-    // "Title 1", "Title 2", "Title 3", "Title 4"
-    // }
-    // ));
+    public DefaultTableModel getMyClassTableModel() {
+        return myClassTableModel;
+    }
+
+    public JTable getMarkTable() {
+        return markTable;
+    }
+
+    public void setMarkTable(JTable markTable) {
+        this.markTable = markTable;
+    }
+
+    public void setMyClassTableModel(DefaultTableModel myClassTableModel) {
+        this.myClassTableModel = myClassTableModel;
+    }
+
+    public DefaultTableModel getMarkTableModel() {
+        return markTableModel;
+    }
+
+    public void setMarkTableModel(DefaultTableModel markTableModel) {
+        this.markTableModel = markTableModel;
+    }
+
+    public JComboBox<String> getChooseClassComboBox() {
+        return chooseClassComboBox;
+    }
+
+    public void setChooseClassComboBox(JComboBox<String> chooseClassComboBox) {
+        this.chooseClassComboBox = chooseClassComboBox;
+    }
+
+    public JComboBox<String> getNamhocComboBox() {
+        return namhocComboBox;
+    }
+
+    public void setNamhocComboBox(JComboBox<String> namhocComboBox) {
+        this.namhocComboBox = namhocComboBox;
+    }
+
+    public JPasswordField getConfirmPassField() {
+        return confirmPassField;
+    }
+
+    public void setConfirmPassField(JPasswordField confirmPassField) {
+        this.confirmPassField = confirmPassField;
+    }
+
+    public JPasswordField getCurrentPassField() {
+        return currentPassField;
+    }
+
+    public void setCurrentPassField(JPasswordField currentPassField) {
+        this.currentPassField = currentPassField;
+    }
+
+    public JPasswordField getNewPassField() {
+        return newPassField;
+    }
+
+    public void setNewPassField(JPasswordField newPassField) {
+        this.newPassField = newPassField;
+    }
+
+    public JTextField getAddressField() {
+        return addressField;
+    }
+
+    public void setAddressField(JTextField addressField) {
+        this.addressField = addressField;
+    }
+
+    public JTextField getEmailField() {
+        return emailField;
+    }
+
+    public void setEmailField(JTextField emailField) {
+        this.emailField = emailField;
+    }
+
+    public JTextField getFirstNameField() {
+        return firstNameField;
+    }
+
+    public void setFirstNameField(JTextField firstNameField) {
+        this.firstNameField = firstNameField;
+    }
+
+    public JTextField getLastNameField() {
+        return lastNameField;
+    }
+
+    public void setLastNameField(JTextField lastNameField) {
+        this.lastNameField = lastNameField;
+    }
+
+    public DefaultComboBoxModel<String> getNamHoComboBoxModel() {
+        return namHoComboBoxModel;
+    }
+
+    
+
+    public DefaultComboBoxModel<String> getMonhocComboBoxModel() {
+        return monhocComboBoxModel;
+    }
+
     public static void main(String[] args) {
         new SinhVienQuanLy().setVisible(true);
         ;
