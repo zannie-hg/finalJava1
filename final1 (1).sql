@@ -1122,6 +1122,7 @@ INSERT INTO `user` (`ID`, `firstname`, `lastname`, `email`, `role_id`, `password
 ('SV001', 'Hồng Bích', 'Nguyễn Văn', 'bichnguyenvan864@gmail.com', 'r2', '8Y1EyS2b', 1, '1996-03-25', 'Hồ Chí Minh', '2023-01-16 07:36:52', '2023-01-17 23:27:26'),
 ('SV002', 'Bích', 'Trần Thị', 'bichtranthi346@gmail.com', 'r2', '0ndUbhdt', 1, '1990-07-16', 'Hải Phòng', '2023-01-16 07:36:52', '2023-01-17 23:33:59'),
 ('SV003', 'Quốc Bình', 'Hồ Văn', 'binhhovan523@gmail.com', 'r2', '4c.cYwop', 1, '1991-10-24', 'Hồ Chí Minh', '2023-01-16 07:36:52', '2023-01-17 23:33:59'),
+('SV004', 'Quốc Bình', 'Hồ Văn', 'binhhovan123@gmail.com', 'r2', '4c.cYwop', 1, '1991-10-24', 'Hồ Chí Minh', '2023-01-16 07:36:52', '2023-01-17 23:33:59'),
 ('SV005', 'Hoa', 'Trần Thị', 'hoatranthi443@gmail.com', 'r2', '32M9skJ8', 1, '2003-05-05', 'Bình Dương', '2023-01-16 07:36:52', '2023-01-17 23:27:26'),
 ('SV006', 'Hoa', 'Phạm Văn', 'hoaphamvan616@gmail.com', 'r2', 'h.hFd65l', 0, '2004-12-03', 'Hà Nội', '2023-01-16 07:36:52', '2023-01-18 11:15:20'),
 ('SV007', 'Hồng', 'Nguyễn Ngọc', 'hong@gmail.com', 'r2', 'abc', 0, '1994-09-15', 'Vũng Tàu', '2023-01-16 07:36:52', '2023-01-19 07:27:02'),
