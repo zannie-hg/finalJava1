@@ -302,7 +302,14 @@ public class SinhVienQuanLy extends JFrame {
     public void addRemoveClassListener(ActionListener listener){
         removeClassBtn.addActionListener(listener);
     }
+
+    public void addUpdateProfileListener(ActionListener listener){
+        updateProfileBtn.addActionListener(listener);
+    }
     
+    public void addChangePassListener(ActionListener listener){
+        changePassBtn.addActionListener(listener);
+    }
     
     // Setter getter
 

@@ -8,7 +8,7 @@ public class Connector {
         Connection conn = null;
         String url = "jdbc:mysql://localhost:3306/final1";
         String user = "root";
-        String pwd = "";
+        String pwd = "password";
         try {
             conn = DriverManager.getConnection(url, user, pwd);
             

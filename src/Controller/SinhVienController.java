@@ -7,11 +7,13 @@ import javax.swing.JOptionPane;
 
 import Database.MarkManager;
 import Database.SubjectManager;
+import Database.UserManager;
 
 import java.awt.*;
 public class SinhVienController {
     AuthenController authenController;
     SinhVienQuanLy sinhVienQuanLy;
+    UserManager userManager;
     private String username;
     private String user_id;
     private MarkManager markManager;
@@ -22,6 +24,7 @@ public class SinhVienController {
 
         markManager = new MarkManager();
         subjectManager = new SubjectManager(); 
+        userManager = new UserManager();
 
         this.authenController = authenController;
         sinhVienQuanLy = new SinhVienQuanLy();
@@ -60,6 +63,26 @@ public class SinhVienController {
                 onRemoveClass(e);
             }
         });
+
+        sinhVienQuanLy.addChangePassListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onChangePassword(e);
+                
+            }
+
+        });
+
+        sinhVienQuanLy.addUpdateProfileListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onUpdateProfile(e);
+                
+            }
+
+        });
     }
 
     public void onLogout(ActionEvent e){
@@ -83,6 +106,17 @@ public class SinhVienController {
         String ID = sinhVienQuanLy.getMarkTableModel().getValueAt(id, 0).toString();
         markManager.deleteMark(ID);
         onChangeFilterMark(e);
+    }
+
+    public void onChangePassword(ActionEvent e){
+        String current = String.copyValueOf(sinhVienQuanLy.getCurrentPassField().getPassword());
+        String newPass = String.copyValueOf(sinhVienQuanLy.getNewPassField().getPassword());
+        String confirmPass = String.copyValueOf(sinhVienQuanLy.getConfirmPassField().getPassword());
+        userManager.updatePassword(user_id ,current, newPass, confirmPass);
+    }   
+
+    public void onUpdateProfile(ActionEvent e){
+
     }
 
     public void onChangeFilterMark(ActionEvent e){

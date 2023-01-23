@@ -71,4 +71,39 @@ public class UserManager {
 
     /* ------------------------SINH VIEN QUERY----------------------------- */
 
+    public void updatePassword(String user_id, String currentPass, String newPass, String confirmPass){
+        try {
+            conn = connector.getConnection();
+            // check confirm password
+            if (!newPass.equals(confirmPass)){
+                JOptionPane.showMessageDialog(null, "Xác nhận mật khẩủ không khớp");
+                return;
+            }
+            // check current password
+            String crPass = "";
+            ResultSet rs1 = conn.createStatement().executeQuery(String.format("SELECT password FROM user WHERE ID = '%s'", user_id));
+            if (rs1.next()){
+                crPass = rs1.getString("password");
+            }else{
+                JOptionPane.showMessageDialog(null, "Tài khoản không tồn tại!");
+                return;
+            }
+            // check current pass 
+            if (!crPass.equals(currentPass)){
+                JOptionPane.showMessageDialog(null, "Mật khẩu hiện tại không đúng");
+                return;
+            }
+
+            // update pass word
+            String query = String.format("UPDATE user SET password = '%s' WHERE ID = '%s'", newPass, user_id);
+            Statement st = conn.createStatement();
+            st.executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "Cập nhật mật khẩu thành công");
+            conn.close();
+            
+        } catch (Exception e) {
+            System.out.println("Error to update pass "+ e);
+        }
+    }
+
 }
