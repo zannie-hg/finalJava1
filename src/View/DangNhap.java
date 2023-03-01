@@ -111,7 +111,7 @@ public class DangNhap extends JFrame {
     public void addDangNhapListenner(ActionListener listener){
         dangnhapButton.addActionListener(listener);
     }
-
+    
     public String[] getLoginInfo(){
         String[] field = {emailField.getText(), String.copyValueOf(matkhauField.getPassword())};
         return field;

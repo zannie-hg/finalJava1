@@ -91,7 +91,8 @@ public class GiaoVienQuanLy extends JFrame {
         timkiemDiemField.setBackground(new Color(204, 255, 255));
         timkiemDiemField.setFont(new Font("Segoe UI", 2, 12)); // NOI18N
         timkiemDiemField.setHorizontalAlignment(JTextField.CENTER);
-        timkiemDiemField.setText("Tìm kiếm");
+        timkiemDiemField.setToolTipText("Tìm kiếm");
+
 
         timkiemDiemField.setBounds(600, 5, 170, 30);
 
@@ -185,7 +186,7 @@ public class GiaoVienQuanLy extends JFrame {
         monhocComboBox.setBounds(260, 10, 100, 22);
 
         // diemTable
-        String[] columnNameDiem = { "Mã lớp", "Họ", "Tên", "Điểm bài tập", "Giữa kỳ", "Cuối kỳ", "Môn học", "Năm học" };
+        String[] columnNameDiem = { "Mã điểm", "Họ", "Tên", "Điểm bài tập", "Giữa kỳ", "Cuối kỳ", "Môn học", "Năm học" };
         tableModelDiem = new DefaultTableModel(columnNameDiem, 0) {
             boolean[] canEdit = new boolean[] {
                     false, false, false, true, true, true, false, true
@@ -294,7 +295,7 @@ public class GiaoVienQuanLy extends JFrame {
         timkiemHoSoField.setBackground(new Color(204, 255, 255));
         timkiemHoSoField.setFont(new Font("Segoe UI", 2, 12)); // NOI18N
         timkiemHoSoField.setHorizontalAlignment(JTextField.CENTER);
-        timkiemHoSoField.setText("Tìm kiếm");
+        timkiemHoSoField.setToolTipText("Tìm kiếm");
 
         timkiemHoSoField.setBounds(610, 10, 170, 30);
 
@@ -389,8 +390,8 @@ public class GiaoVienQuanLy extends JFrame {
         String[] columnNameHoSo = { "ID", "Họ", "Tên", "Ngày sinh", "Địa chỉ", "Giới tính", "Email" };
         tableModelHoSo = new DefaultTableModel(columnNameHoSo, 0);
         hoSoTable = new JTable(tableModelHoSo);
-        hoSoTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        hoSoTable.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
                 onHoSoClicked(evt);
             }
         });
@@ -551,7 +552,9 @@ public class GiaoVienQuanLy extends JFrame {
     public void addExportcsvDiemListener(ActionListener actionListener) {
         exportcsvDiemButton.addActionListener(actionListener);
     }
-
+    public void addExportcsvHoSoListener(ActionListener actionListener) {
+        exportcsvHoSoButton.addActionListener(actionListener);
+    }
     public void addHoSoTableListener(MouseListener mouseListener) {
         hoSoTable.addMouseListener(mouseListener);
     }
@@ -564,6 +567,12 @@ public class GiaoVienQuanLy extends JFrame {
         xoaHoSoButton.addActionListener(actionListener);
     }
 
+    public void addSearchDiemListener(DocumentListener listener){
+        timkiemDiemField.getDocument().addDocumentListener(listener);
+    }
+    public void addSearchHoSoListener(DocumentListener listener){
+        timkiemHoSoField.getDocument().addDocumentListener(listener);
+    }
     public DefaultTableModel getTableModelDiem() {
         return tableModelDiem;
     }
@@ -616,6 +625,13 @@ public class GiaoVienQuanLy extends JFrame {
         return idHoSoField;
     }
 
+    
+    public JTextField getTimkiemDiemField() {
+        return timkiemDiemField;
+    }
+    public JTextField getTimkiemHoSoField() {
+        return timkiemHoSoField;
+    }
     public JTextField getNgaysinhHoSoField() {
         return ngaysinhHoSoField;
     }
@@ -624,9 +640,7 @@ public class GiaoVienQuanLy extends JFrame {
         return tenHoSoField;
     }
 
-    public JTextField getTimkiemHoSoField() {
-        return timkiemHoSoField;
-    }
+   
 
     public int getGenderField() {
         if (femaleRadioBtn.isSelected()) {

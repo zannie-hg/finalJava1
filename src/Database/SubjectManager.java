@@ -61,16 +61,10 @@ public class SubjectManager {
     // get my year
     public void getMyYear(DefaultComboBoxModel<String> namhocBox, String user_id) {
         try {
-            namhocBox.removeAllElements();
-            conn = connector.getConnection();
-            String query = String.format("SELECT DISTINCT year FROM `mark` WHERE user_id = '%s' ORDER BY year DESC;",
-                    user_id);
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(query);
-            while (rs.next()) {
-                String name = rs.getString("year");
-                namhocBox.addElement(name.substring(0, 4));
-            }
+            namhocBox.addElement("2020");
+            namhocBox.addElement("2021");
+            namhocBox.addElement("2022");
+            namhocBox.addElement("2023");
             conn.close();
         } catch (Exception e) {
             System.out.println("Error get year" + e);

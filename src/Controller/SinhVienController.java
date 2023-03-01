@@ -2,6 +2,8 @@ package Controller;
 
 import View.SinhVienQuanLy;
 import java.awt.event.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JOptionPane;
 
@@ -33,6 +35,12 @@ public class SinhVienController {
 
         subjectManager.getMyYear(sinhVienQuanLy.getNamHoComboBoxModel(), user_id);
         markManager.getMyMark(sinhVienQuanLy.getMarkTableModel(), user_id, "2023");
+        userManager.getMyUserInfo(user_id,sinhVienQuanLy.getFirstNameField(),
+            sinhVienQuanLy.getLastNameField(),
+            sinhVienQuanLy.getEmailField(), 
+            sinhVienQuanLy.getAddressField(), 
+            sinhVienQuanLy.getBirthdayCalendar(), sinhVienQuanLy.getMaleRadioBtn(), sinhVienQuanLy.getFemaleRadioBtn()
+        );
     }
 
     public void initListener(){
@@ -83,6 +91,7 @@ public class SinhVienController {
             }
 
         });
+       
     }
 
     public void onLogout(ActionEvent e){
@@ -116,7 +125,14 @@ public class SinhVienController {
     }   
 
     public void onUpdateProfile(ActionEvent e){
-
+        String firstname = sinhVienQuanLy.getFirstNameField().getText();
+        String lastname = sinhVienQuanLy.getLastNameField().getText();
+        String email = sinhVienQuanLy.getEmailField().getText();
+        String gender = sinhVienQuanLy.getGenderField() + "";
+        String birthday = new SimpleDateFormat("yyyy-MM-dd")
+        .format(sinhVienQuanLy.getBirthdayCalendar().getDate());
+        String address = sinhVienQuanLy.getAddressField().getText();
+        userManager.updateMyInfo(user_id, firstname, lastname, email, gender, birthday, address);
     }
 
     public void onChangeFilterMark(ActionEvent e){

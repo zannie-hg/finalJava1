@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import Controller.Connector;
+import View.SinhVienQuanLy;
 
 public class MarkManager {
     Connector connector;
@@ -23,7 +24,7 @@ public class MarkManager {
         }
     }
 
-    public void getAllMark(DefaultTableModel model, String yearOption, String subjectOption){
+    public void getAllMark(DefaultTableModel model, String yearOption, String subjectOption, String keyword){
         try {
             model.setRowCount(0);
             conn = connector.getConnection();
@@ -31,8 +32,9 @@ public class MarkManager {
                 select mark.ID, user.firstname, user.lastname, mark.homework_mark, mark.midtern_mark, mark.final_mark, subject.name, mark.year
                 from mark INNER JOIN user ON mark.user_id = user.ID
                 INNER JOIN subject ON mark.subject_id = subject.ID
-                where mark.year = '%s' and subject.name = '%s';
-                    """, yearOption, subjectOption);
+                where mark.year = '%s' and subject.name = '%s' and (user.firstname like '%%%s%%' or user.lastname like '%%%s%%');
+                    """, yearOption, subjectOption, keyword, keyword);
+            System.out.println(query);
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(query);
             while(rs.next()){
@@ -80,6 +82,7 @@ public class MarkManager {
             System.out.println("Error" + e);
         }
     }
+
     /* --------------------------------------SINH VIEN QUERY---------------------------------------------- */
     // add mark
     public void addClass(String user_id, String subject, String year){
@@ -101,10 +104,13 @@ public class MarkManager {
             ResultSet rs2 = st2.executeQuery(query2);
             rs2.next();
             String id = rs2.getString("ID");
-            int idInt = Integer.parseInt(id.substring(2));
+            int idInt = Integer.parseInt(id.substring(2)); //lay phantu thu 2
             idInt++;
             id = "CL" + String.format("%06d", idInt);
+            
             // insert mark
+            
+           
             String query = String.format("insert into mark(ID, user_id, subject_id, year) values('%s','%s', '%s', '%s');",id, user_id, subject_id, year);
             System.out.println(query);
             Statement st = conn.createStatement();

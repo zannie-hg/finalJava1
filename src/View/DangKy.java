@@ -1,12 +1,11 @@
 package View;
-
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.text.*;
-
+import org.apache.commons.validator.routines.EmailValidator;
 public class DangKy extends JFrame {
     private com.toedter.calendar.JDateChooser ngaysinhCalendar;
     private JButton dangkyButton;
@@ -72,9 +71,8 @@ public class DangKy extends JFrame {
 
         // emailField
         emailField = new JTextField();
-
         emailField.setBounds(50, 150, 250, 30);
-
+  
         // ngaysinhLabel
         ngaysinhLabel = new JLabel();
         ngaysinhLabel.setText("Ngày sinh :");
@@ -181,12 +179,12 @@ public class DangKy extends JFrame {
         info[0] = tenField.getText();
         info[1] = hoField.getText();
         info[2] = emailField.getText();
-        info[3] = new SimpleDateFormat("yyyy-mm-dd").format(ngaysinhCalendar.getDate());
+        info[3] = new SimpleDateFormat("yyyy-MM-dd").format(ngaysinhCalendar.getDate());
         info[4] = String.copyValueOf(matkhauField.getPassword());
         info[5] = String.copyValueOf(nhaplaimatkhauField.getPassword());
         return info;
     }
-
+   
     public static void main(String[] args) {
         new DangKy();
     }

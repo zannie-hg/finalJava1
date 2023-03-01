@@ -78,6 +78,7 @@ public class AuthenController {
                         role = "Sinh viên";
                         new SinhVienController(this, username, ID);
                         dangNhapView.setVisible(false);
+                        
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Sai mật khẩu");
@@ -97,6 +98,7 @@ public class AuthenController {
     }
 
     public void onDangKy(ActionEvent e) {
+        
         try {
             conn = connector.getConnection();
             String[] info = dangKyView.getRegisterInfo();
@@ -109,11 +111,17 @@ public class AuthenController {
 
 
             if (!password.equals(repassword)) {
-                JOptionPane.showMessageDialog(null, "Mật khẩu không khớp");
+                JOptionPane.showMessageDialog(null, "Mật khẩu không khớp","Eror", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
-
+            if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")){
+                JOptionPane.showMessageDialog(null, "Email không hợp lệ","Eror", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (password.length() < 8) {
+                JOptionPane.showMessageDialog(null, "Mật khẩu không hợp lệ","Eror", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             // check email and password in table user
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("Select email from user where email = '" + email + "'");
@@ -126,7 +134,7 @@ public class AuthenController {
                 int id = Integer.parseInt(ID.substring(2));
                 id++;
                 ID = "SV" + String.format("%03d", id);
-                String query = String.format("INSERT INTO `user` (`ID`, `firstname`, `lastname`, `email`, `role_id`, `password`, `sex`, `birthday`, `address`, `create_at`, `update_at`) VALUES ('%s', '%s', '%s', '%s', 'r2', '%s', null, '%s', '', current_timestamp(), '0000-00-00 00:00:00.000000');", ID, firstname, lastname, email, password, birthday);
+                String query = String.format("INSERT INTO `user` (`ID`, `firstname`, `lastname`, `email`, `role_id`, `password`, `sex`, `birthday`, `address`) VALUES ('%s', '%s', '%s', '%s', 'r2', '%s', null, '%s', '');", ID, firstname, lastname, email, password, birthday);
                 st.executeUpdate(query);
                 JOptionPane.showMessageDialog(null, "Đăng ký thành công");
                 dangKyView.setVisible(false);

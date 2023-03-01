@@ -1,11 +1,15 @@
 package View;
 
 import javax.swing.*;
+import javax.swing.event.MouseInputAdapter;
+import javax.swing.plaf.basic.BasicToolBarUI.DockingListener;
+
 import java.awt.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
-import com.toedter.calendar.JDateChooser;
+import java.beans.PropertyChangeListener;
 
+import com.toedter.calendar.JDateChooser;
 public class SinhVienQuanLy extends JFrame {
     private DefaultTableModel myClassTableModel;
     private DefaultTableModel markTableModel;
@@ -184,11 +188,27 @@ public class SinhVienQuanLy extends JFrame {
         femaleRadioBtn = new JRadioButton();
         femaleRadioBtn.setBounds(150, 250, 98, 21);
         femaleRadioBtn.setText("Nữ");
+        femaleRadioBtn.addActionListener(new ActionListener(){
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                femaleRadioBtnActionPerformed(e);
+                
+            }
+
+        });
         maleRadioBtn = new JRadioButton();
         maleRadioBtn.setBounds(40, 250, 90, 21);
         maleRadioBtn.setText("Nam");
+        maleRadioBtn.addActionListener(new ActionListener(){
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                maleRadioBtnActionPerformed(e);
+                
+            }
+
+        });
         // current password field label
         currentPassField = new JPasswordField();
         currentPassField.setBounds(460, 30, 290, 40);
@@ -247,7 +267,7 @@ public class SinhVienQuanLy extends JFrame {
         profilePanel.add(updateProfileBtn);
         profilePanel.setBackground(new Color(230, 230, 230));
         profilePanel.setLayout(null);
-
+        
         // title label
         titleLabel = new JLabel();
         titleLabel.setBounds(270, 10, 300, 30);
@@ -310,7 +330,10 @@ public class SinhVienQuanLy extends JFrame {
     public void addChangePassListener(ActionListener listener){
         changePassBtn.addActionListener(listener);
     }
-    
+    public void addChangeBirthdayListener(PropertyChangeListener listener) {
+        birthdayCalendar.addPropertyChangeListener(listener);
+    }
+
     // Setter getter
 
     
@@ -411,6 +434,14 @@ public class SinhVienQuanLy extends JFrame {
         this.lastNameField = lastNameField;
     }
 
+    public JDateChooser getBirthdayCalendar() {
+        return birthdayCalendar;
+    }
+
+    public void setBirthdayCalendar(JDateChooser birthdayCalendar) {
+        this.birthdayCalendar = birthdayCalendar;
+    }
+
     public DefaultComboBoxModel<String> getNamHoComboBoxModel() {
         return namHoComboBoxModel;
     }
@@ -420,6 +451,52 @@ public class SinhVienQuanLy extends JFrame {
     public DefaultComboBoxModel<String> getMonhocComboBoxModel() {
         return monhocComboBoxModel;
     }
+    public int getGenderField() {
+        if (femaleRadioBtn.isSelected()) {
+            return 0;
+        } else if (maleRadioBtn.isSelected()) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
+    
+
+    public JRadioButton getFemaleRadioBtn() {
+        return femaleRadioBtn;
+    }
+
+    public JRadioButton getMaleRadioBtn() {
+        return maleRadioBtn;
+    }
+
+    private void setGenderBtn(String gender) {
+        if (gender.equals("NULL")) {
+            maleRadioBtn.setSelected(false);
+            femaleRadioBtn.setSelected(false);
+        } else if (gender.equals("Nam")) {
+            maleRadioBtn.setSelected(true);
+            femaleRadioBtn.setSelected(false);
+        } else {
+            maleRadioBtn.setSelected(false);
+            femaleRadioBtn.setSelected(true);
+        }
+    }
+
+    private void femaleRadioBtnActionPerformed(ActionEvent evt) {
+        if (femaleRadioBtn.isSelected()) {
+            setGenderBtn("Nữ");
+        }
+    }
+
+    private void maleRadioBtnActionPerformed(ActionEvent evt) {
+        if (maleRadioBtn.isSelected()) {
+            setGenderBtn("Nam");
+        }
+    }
+
+
 
     public static void main(String[] args) {
         new SinhVienQuanLy().setVisible(true);
